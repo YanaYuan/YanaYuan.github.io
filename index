@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Ocean Animals Adventure for Kids</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            overflow-x: hidden;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ocean-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to right, #3b82f6, #06b6d4, #3b82f6);
+            clip-path: polygon(0 50%, 25% 0%, 50% 50%, 75% 0%, 100% 50%, 100% 100%, 0% 100%);
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float-bubble 6s ease-in-out infinite;
+        }
+        
+        @keyframes float-bubble {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fish-swim {
+            animation: swim 8s linear infinite;
+        }
+        
+        @keyframes swim {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
+        }
+        
+        .bounce {
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .animal-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .animal-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .fun-fact {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+        
+        .seaweed {
+            position: absolute;
+            width: 20px;
+            background: linear-gradient(to top, #16a34a, #22c55e);
+            border-radius: 10px 10px 0 0;
+            animation: sway 4s ease-in-out infinite;
+        }
+        
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title Slide -->
+    <div class="slide bg-gradient-to-b from-sky-300 to-blue-500 flex flex-col items-center justify-center text-white p-12 relative">
+        <!-- Decorative bubbles -->
+        <div class="bubble w-16 h-16 top-20 left-20"></div>
+        <div class="bubble w-12 h-12 top-32 right-32"></div>
+        <div class="bubble w-20 h-20 top-40 left-1/3"></div>
+        <div class="bubble w-8 h-8 top-60 right-20"></div>
+        <div class="bubble w-14 h-14 bottom-40 left-1/4"></div>
+        
+        <!-- Seaweed decorations -->
+        <div class="seaweed h-32 bottom-0 left-16"></div>
+        <div class="seaweed h-40 bottom-0 left-32"></div>
+        <div class="seaweed h-28 bottom-0 right-24"></div>
+        <div class="seaweed h-36 bottom-0 right-40"></div>
+        
+        <!-- Main content -->
+        <div class="z-10 text-center">
+            <h1 class="text-8xl font-bold mb-8 text-yellow-300 bounce">🌊 Ocean Friends! 🐠</h1>
+            <p class="text-3xl mb-8 text-blue-100">Let's meet the amazing animals that live in the sea!</p>
+            <div class="flex justify-center items-center space-x-12 mt-16">
+                <div class="text-center bounce" style="animation-delay: 0.5s;">
+                    <div class="text-6xl mb-4">🐟</div>
+                    <p class="text-xl text-blue-100">Colorful Fish</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 1s;">
+                    <div class="text-6xl mb-4">🐙</div>
+                    <p class="text-xl text-blue-100">Smart Octopus</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 1.5s;">
+                    <div class="text-6xl mb-4">🐢</div>
+                    <p class="text-xl text-blue-100">Gentle Turtles</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 2s;">
+                    <div class="text-6xl mb-4">🦈</div>
+                    <p class="text-xl text-blue-100">Friendly Sharks</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ocean wave -->
+        <div class="ocean-wave"></div>
+    </div>
+
+    <!-- Slide 2: Fish -->
+    <div class="slide bg-gradient-to-b from-cyan-300 to-blue-400 text-white p-12 relative">
+        <!-- Bubbles -->
+        <div class="bubble w-10 h-10 top-16 left-24"></div>
+        <div class="bubble w-14 h-14 top-24 right-28"></div>
+        <div class="bubble w-8 h-8 top-48 left-1/3"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10">
+            <div class="text-center mb-8">
+                <h1 class="text-6xl font-bold text-yellow-300 mb-4">🐠 Colorful Fish! 🐟</h1>
+                <div class="w-32 h-2 bg-yellow-400 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8 mt-8">
+                <!-- Left side - Big fish emoji -->
+                <div class="flex flex-col items-center justify-center">
+                    <div class="text-9xl fish-swim">🐠</div>
+                    <div class="text-7xl fish-swim" style="animation-delay: 2s;">🐟</div>
+                    <div class="text-8xl fish-swim" style="animation-delay: 4s;">🎣</div>
+                </div>
+                
+                <!-- Right side - Facts -->
+                <div class="space-y-6">
+                    <div class="animal-card bg-white bg-opacity-90 rounded-3xl p-6 text-gray-800">
+                        <h3 class="text-3xl font-bold text-blue-600 mb-4 flex items-center">
+                            <i class="fas fa-fish text-4xl mr-4"></i>
+                            Fish Facts!
+                        </h3>
+                        <ul class="text-xl space-y-3">
+                            <li class="flex items-center"><span class="text-2xl mr-3">🌈</span> Fish come in many bright colors!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">💨</span> They breathe underwater with gills</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🏊</span> Fish use their fins to swim fast</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">👁️</span> Some fish can see in all directions!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fun-fact text-white text-center">
+                        <h4 class="text-2xl font-bold mb-2">🤯 WOW FACT!</h4>
+                        <p class="text-lg">Some fish can change colors like a rainbow! 🌈</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ocean-wave"></div>
+    </div>
+
+    <!-- Slide 3: Octopus -->
+    <div class="slide bg-gradient-to-b from-purple-400 to-blue-500 text-white p-12 relative">
+        <!-- Bubbles -->
+        <div class="bubble w-12 h-12 top-20 left-32"></div>
+        <div class="bubble w-16 h-16 top-36 right-24"></div>
+        <div class="bubble w-10 h-10 bottom-32 left-20"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10">
+            <div class="text-center mb-8">
+                <h1 class="text-6xl font-bold text-yellow-300 mb-4">🐙 Amazing Octopus! 🌊</h1>
+                <div class="w-32 h-2 bg-yellow-400 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8 mt-8">
+                <!-- Left side - Facts -->
+                <div class="space-y-6">
+                    <div class="animal-card bg-white bg-opacity-90 rounded-3xl p-6 text-gray-800">
+                        <h3 class="text-3xl font-bold text-purple-600 mb-4 flex items-center">
+                            <span class="text-4xl mr-4">🐙</span>
+                            Octopus Magic!
+                        </h3>
+                        <ul class="text-xl space-y-3">
+                            <li class="flex items-center"><span class="text-2xl mr-3">🖐️</span> Has 8 super strong arms!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🧠</span> Very smart - can solve puzzles!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🎨</span> Changes colors to hide!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🏃</span> Can squeeze through tiny spaces!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fun-fact text-white text-center">
+                        <h4 class="text-2xl font-bold mb-2">🤯 SUPER COOL!</h4>
+                        <p class="text-lg">Octopus has 3 hearts! 💖💖💖</p>
+                    </div>
+                </div>
+                
+                <!-- Right side - Big octopus emoji -->
+                <div class="flex flex-col items-center justify-center">
+                    <div class="text-9xl bounce">🐙</div>
+                    <div class="text-6xl mt-4" style="animation: bounce 2s ease-in-out infinite; animation-delay: 0.5s;">🌊</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ocean-wave"></div>
+    </div>
+
+    <!-- Slide 4: Sea Turtle -->
+    <div class="slide bg-gradient-to-b from-green-400 to-blue-500 text-white p-12 relative">
+        <!-- Bubbles -->
+        <div class="bubble w-14 h-14 top-24 left-28"></div>
+        <div class="bubble w-8 h-8 top-40 right-32"></div>
+        <div class="bubble w-18 h-18 bottom-40 left-1/4"></div>
+        
+        <!-- Seaweed -->
+        <div class="seaweed h-24 bottom-0 left-12"></div>
+        <div class="seaweed h-32 bottom-0 right-16"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10">
+            <div class="text-center mb-8">
+                <h1 class="text-6xl font-bold text-yellow-300 mb-4">🐢 Gentle Sea Turtles! 🌊</h1>
+                <div class="w-32 h-2 bg-yellow-400 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8 mt-8">
+                <!-- Left side - Big turtle emoji -->
+                <div class="flex flex-col items-center justify-center">
+                    <div class="text-9xl bounce">🐢</div>
+                    <div class="text-5xl mt-4" style="animation: bounce 2s ease-in-out infinite; animation-delay: 1s;">🥬</div>
+                </div>
+                
+                <!-- Right side - Facts -->
+                <div class="space-y-6">
+                    <div class="animal-card bg-white bg-opacity-90 rounded-3xl p-6 text-gray-800">
+                        <h3 class="text-3xl font-bold text-green-600 mb-4 flex items-center">
+                            <span class="text-4xl mr-4">🐢</span>
+                            Turtle Tales!
+                        </h3>
+                        <ul class="text-xl space-y-3">
+                            <li class="flex items-center"><span class="text-2xl mr-3">🏠</span> Carries its house everywhere!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">👴</span> Can live for 100+ years!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🥬</span> Loves to eat sea grass</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🏖️</span> Comes to beach to lay eggs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fun-fact text-white text-center">
+                        <h4 class="text-2xl font-bold mb-2">🤯 AMAZING!</h4>
+                        <p class="text-lg">Baby turtles know how to find the ocean! 🌊</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ocean-wave"></div>
+    </div>
+
+    <!-- Slide 5: Shark -->
+    <div class="slide bg-gradient-to-b from-gray-400 to-blue-600 text-white p-12 relative">
+        <!-- Bubbles -->
+        <div class="bubble w-12 h-12 top-16 left-20"></div>
+        <div class="bubble w-10 h-10 top-32 right-36"></div>
+        <div class="bubble w-16 h-16 bottom-32 left-1/3"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10">
+            <div class="text-center mb-8">
+                <h1 class="text-6xl font-bold text-yellow-300 mb-4">🦈 Friendly Sharks! 🌊</h1>
+                <div class="w-32 h-2 bg-yellow-400 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8 mt-8">
+                <!-- Left side - Facts -->
+                <div class="space-y-6">
+                    <div class="animal-card bg-white bg-opacity-90 rounded-3xl p-6 text-gray-800">
+                        <h3 class="text-3xl font-bold text-blue-600 mb-4 flex items-center">
+                            <span class="text-4xl mr-4">🦈</span>
+                            Shark Secrets!
+                        </h3>
+                        <ul class="text-xl space-y-3">
+                            <li class="flex items-center"><span class="text-2xl mr-3">🦷</span> Teeth grow back if they fall out!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">👃</span> Amazing sense of smell!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🏊</span> Great swimmers and divers!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">😊</span> Most sharks are friendly!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fun-fact text-white text-center">
+                        <h4 class="text-2xl font-bold mb-2">🤯 DID YOU KNOW?</h4>
+                        <p class="text-lg">Sharks have been around since dinosaurs! 🦕</p>
+                    </div>
+                </div>
+                
+                <!-- Right side - Big shark emoji -->
+                <div class="flex flex-col items-center justify-center">
+                    <div class="text-9xl fish-swim">🦈</div>
+                    <div class="text-5xl mt-4 bounce">🌊</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ocean-wave"></div>
+    </div>
+
+    <!-- Slide 6: Whale -->
+    <div class="slide bg-gradient-to-b from-indigo-400 to-blue-600 text-white p-12 relative">
+        <!-- Bubbles -->
+        <div class="bubble w-20 h-20 top-20 left-24"></div>
+        <div class="bubble w-12 h-12 top-40 right-28"></div>
+        <div class="bubble w-14 h-14 bottom-40 left-32"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10">
+            <div class="text-center mb-8">
+                <h1 class="text-6xl font-bold text-yellow-300 mb-4">🐋 Giant Whales! 🌊</h1>
+                <div class="w-32 h-2 bg-yellow-400 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-8 mt-8">
+                <!-- Left side - Big whale emoji -->
+                <div class="flex flex-col items-center justify-center">
+                    <div class="text-9xl bounce">🐋</div>
+                    <div class="text-6xl mt-4" style="animation: bounce 2s ease-in-out infinite; animation-delay: 0.8s;">💨</div>
+                </div>
+                
+                <!-- Right side - Facts -->
+                <div class="space-y-6">
+                    <div class="animal-card bg-white bg-opacity-90 rounded-3xl p-6 text-gray-800">
+                        <h3 class="text-3xl font-bold text-indigo-600 mb-4 flex items-center">
+                            <span class="text-4xl mr-4">🐋</span>
+                            Whale Wonders!
+                        </h3>
+                        <ul class="text-xl space-y-3">
+                            <li class="flex items-center"><span class="text-2xl mr-3">📏</span> Biggest animals on Earth!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">🎵</span> Sing beautiful songs!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">💨</span> Breathe air through blowholes!</li>
+                            <li class="flex items-center"><span class="text-2xl mr-3">❤️</span> Very gentle and friendly!</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="fun-fact text-white text-center">
+                        <h4 class="text-2xl font-bold mb-2">🤯 INCREDIBLE!</h4>
+                        <p class="text-lg">A whale's heart is as big as a car! 🚗💖</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ocean-wave"></div>
+    </div>
+
+    <!-- Slide 7: Thank You / Summary -->
+    <div class="slide bg-gradient-to-b from-pink-400 to-blue-500 flex flex-col items-center justify-center text-white p-12 relative">
+        <!-- Decorative bubbles -->
+        <div class="bubble w-16 h-16 top-20 left-20"></div>
+        <div class="bubble w-12 h-12 top-32 right-32"></div>
+        <div class="bubble w-20 h-20 top-40 left-1/3"></div>
+        <div class="bubble w-8 h-8 top-60 right-20"></div>
+        <div class="bubble w-14 h-14 bottom-40 left-1/4"></div>
+        <div class="bubble w-18 h-18 bottom-32 right-1/3"></div>
+        
+        <!-- Seaweed decorations -->
+        <div class="seaweed h-32 bottom-0 left-16"></div>
+        <div class="seaweed h-40 bottom-0 left-32"></div>
+        <div class="seaweed h-28 bottom-0 right-24"></div>
+        <div class="seaweed h-36 bottom-0 right-40"></div>
+        
+        <!-- Main content -->
+        <div class="z-10 text-center">
+            <h1 class="text-7xl font-bold mb-8 text-yellow-300 bounce">🌊 Thanks for Learning! 🌊</h1>
+            <p class="text-3xl mb-12 text-pink-100">Now you know about amazing ocean friends!</p>
+            
+            <div class="grid grid-cols-3 gap-8 mt-16 max-w-4xl">
+                <div class="text-center bounce" style="animation-delay: 0.5s;">
+                    <div class="text-8xl mb-4">🐠</div>
+                    <p class="text-xl text-pink-100">Colorful Fish</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 1s;">
+                    <div class="text-8xl mb-4">🐙</div>
+                    <p class="text-xl text-pink-100">Smart Octopus</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 1.5s;">
+                    <div class="text-8xl mb-4">🐢</div>
+                    <p class="text-xl text-pink-100">Gentle Turtles</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 2s;">
+                    <div class="text-8xl mb-4">🦈</div>
+                    <p class="text-xl text-pink-100">Friendly Sharks</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 2.5s;">
+                    <div class="text-8xl mb-4">🐋</div>
+                    <p class="text-xl text-pink-100">Giant Whales</p>
+                </div>
+                <div class="text-center bounce" style="animation-delay: 3s;">
+                    <div class="text-8xl mb-4">🌊</div>
+                    <p class="text-xl text-pink-100">Ocean Fun!</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 bg-white bg-opacity-20 rounded-3xl p-8 max-w-3xl">
+                <h2 class="text-4xl font-bold text-yellow-300 mb-4">🌟 Remember!</h2>
+                <p class="text-2xl text-pink-100">The ocean is home to many wonderful animals. We should take care of the sea so they can live happily! 🌊💙</p>
+            </div>
+        </div>
+        
+        <!-- Ocean wave -->
+        <div class="ocean-wave"></div>
+    </div>
+</body>
+</html>
