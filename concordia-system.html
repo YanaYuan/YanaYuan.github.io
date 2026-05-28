@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Concordia Project Agent System</title>
+<title>Concordia 项目 Agent 系统</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   /* ── Reset & Base ── */
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,10 +45,8 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Typography ── */
   h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; letter-spacing: -0.01em; }
 
-  /* ── Layout ── */
   .container { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
   @media (max-width: 768px) { .container { padding: 0 20px; } }
 
@@ -133,9 +132,7 @@
     font-size: 1.3rem;
     margin-bottom: 16px;
   }
-  .phase-skills {
-    list-style: none;
-  }
+  .phase-skills { list-style: none; }
   .phase-skills li {
     font-size: 0.88rem;
     padding: 6px 0;
@@ -161,7 +158,7 @@
     .phases { grid-template-columns: 1fr; }
   }
 
-  /* ── Roles Diagram ── */
+  /* ── Roles ── */
   .roles-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -189,6 +186,7 @@
   .role-tag.ai { background: var(--accent-light); color: var(--accent-dark); }
   .role-tag.person { background: var(--success-bg); color: var(--success); }
   .role-card h4 { font-size: 1.15rem; margin-bottom: 8px; }
+  .role-card .role-icon { font-size: 1.4rem; margin-bottom: 12px; color: var(--ink-muted); }
   .role-card p { font-size: 0.88rem; color: var(--ink-light); line-height: 1.6; }
   @media (max-width: 768px) {
     .roles-grid { grid-template-columns: 1fr; }
@@ -216,10 +214,10 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto 10px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
-  .comm-node-icon.ai-icon { background: var(--accent-light); }
-  .comm-node-icon.human-icon { background: var(--success-bg); }
+  .comm-node-icon.ai-icon { background: var(--accent-light); color: var(--accent-dark); }
+  .comm-node-icon.human-icon { background: var(--success-bg); color: var(--success); }
   .comm-node-name { font-weight: 600; font-size: 0.85rem; }
   .comm-node-sub { font-size: 0.75rem; color: var(--ink-muted); }
   .comm-arrow {
@@ -302,7 +300,7 @@
     padding: 24px;
   }
   .file-group h4 {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: 0.82rem;
     font-weight: 600;
     margin-bottom: 16px;
@@ -310,6 +308,7 @@
     padding-bottom: 8px;
     border-bottom: 1px solid var(--border-light);
   }
+  .file-group h4 i { margin-right: 8px; color: var(--ink-muted); }
   .file-item {
     display: flex;
     justify-content: space-between;
@@ -369,7 +368,6 @@
     margin-top: 10px;
   }
   .api-status.placeholder { background: var(--warning-bg); color: var(--warning); }
-  .api-status.available { background: var(--success-bg); color: var(--success); }
   @media (max-width: 768px) {
     .api-grid { grid-template-columns: 1fr; }
   }
@@ -386,7 +384,7 @@
     padding: 16px;
     text-align: center;
   }
-  .source-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .source-icon { font-size: 1.5rem; margin-bottom: 8px; color: var(--ink-muted); }
   .source-name { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
   .source-tool { font-size: 0.7rem; color: var(--ink-muted); font-family: var(--font-mono); }
   @media (max-width: 768px) {
@@ -466,11 +464,11 @@
   <div class="nav-inner">
     <a href="#" class="nav-brand">Concordia</a>
     <div class="nav-links">
-      <a href="#architecture">Architecture</a>
-      <a href="#skills">Skills</a>
-      <a href="#files">File Registry</a>
-      <a href="#apis">APIs & Sources</a>
-      <a href="#dataflow">Data Flow</a>
+      <a href="#architecture"><i class="fa-solid fa-sitemap"></i> 架构</a>
+      <a href="#skills"><i class="fa-solid fa-puzzle-piece"></i> 技能矩阵</a>
+      <a href="#files"><i class="fa-solid fa-folder-tree"></i> 文件清单</a>
+      <a href="#apis"><i class="fa-solid fa-plug"></i> API 与数据源</a>
+      <a href="#dataflow"><i class="fa-solid fa-diagram-project"></i> 数据流</a>
     </div>
   </div>
 </nav>
@@ -478,9 +476,9 @@
 <!-- Hero -->
 <header class="hero">
   <div class="container">
-    <div class="hero-eyebrow">System Architecture Overview</div>
-    <h1>Concordia Project Agent System</h1>
-    <p class="hero-subtitle">An AI-native project management framework where a Project Agent coordinates multiple Member Agents to plan, execute, and deliver complex projects — with humans in the loop for decisions and review.</p>
+    <div class="hero-eyebrow">系统架构概览</div>
+    <h1>Concordia 项目 Agent 系统</h1>
+    <p class="hero-subtitle">AI 原生的项目管理框架：Project Agent 协调多个 Member Agent 完成项目的规划、执行与交付，人类在关键决策和 Review 环节保持控制。</p>
   </div>
 </header>
 
@@ -488,101 +486,105 @@
 <section class="section" id="architecture">
   <div class="container">
     <div class="section-number">01</div>
-    <h2>Three-Phase Lifecycle</h2>
-    <p class="section-lead">Every project moves through three distinct phases: initialization, planning, and a continuous execution loop with daily and hourly rhythms.</p>
+    <h2>三阶段生命周期</h2>
+    <p class="section-lead">每个项目经历三个阶段：初始化、规划，以及以小时和天为节奏的持续执行循环。</p>
 
     <div class="phases">
       <div class="phase">
-        <div class="phase-label">Phase 1 — Initialization</div>
-        <h3>Setup</h3>
+        <div class="phase-label">阶段一 — 初始化</div>
+        <h3><i class="fa-solid fa-rocket" style="font-size:0.9rem; color:var(--accent); margin-right:8px;"></i>启动</h3>
         <ul class="phase-skills">
-          <li><span class="skill-name">project-init</span> <span class="skill-freq">once</span></li>
-          <li><span class="skill-name">source-collection</span> <span class="skill-freq">once</span></li>
-          <li><span class="skill-name">todo-breakdown</span> <span class="skill-freq">once</span></li>
+          <li><span class="skill-name">project-init</span> <span class="skill-freq">一次性</span></li>
+          <li><span class="skill-name">source-collection</span> <span class="skill-freq">一次性</span></li>
+          <li><span class="skill-name">todo-breakdown</span> <span class="skill-freq">一次性</span></li>
         </ul>
       </div>
       <div class="phase">
-        <div class="phase-label">Phase 2 — Project Loop</div>
-        <h3>Manage</h3>
+        <div class="phase-label">阶段二 — 项目循环</div>
+        <h3><i class="fa-solid fa-arrows-rotate" style="font-size:0.9rem; color:var(--accent); margin-right:8px;"></i>管理</h3>
         <ul class="phase-skills">
-          <li><span class="skill-name">project-heartbeat</span> <span class="skill-freq">hourly</span></li>
-          <li><span class="skill-name">project-dashboard</span> <span class="skill-freq">post-heartbeat</span></li>
-          <li><span class="skill-name">todo-update</span> <span class="skill-freq">daily</span></li>
-          <li><span class="skill-name">project-knowhow</span> <span class="skill-freq">daily</span></li>
+          <li><span class="skill-name">project-heartbeat</span> <span class="skill-freq">每小时</span></li>
+          <li><span class="skill-name">project-dashboard</span> <span class="skill-freq">心跳后</span></li>
+          <li><span class="skill-name">todo-update</span> <span class="skill-freq">每天</span></li>
+          <li><span class="skill-name">project-knowhow</span> <span class="skill-freq">每天</span></li>
         </ul>
       </div>
       <div class="phase">
-        <div class="phase-label">Phase 3 — Member Loop</div>
-        <h3>Execute</h3>
+        <div class="phase-label">阶段三 — 成员循环</div>
+        <h3><i class="fa-solid fa-hammer" style="font-size:0.9rem; color:var(--accent); margin-right:8px;"></i>执行</h3>
         <ul class="phase-skills">
-          <li><span class="skill-name">member-heartbeat</span> <span class="skill-freq">hourly</span></li>
+          <li><span class="skill-name">member-heartbeat</span> <span class="skill-freq">每小时</span></li>
         </ul>
-        <p style="font-size:0.82rem; color:var(--ink-muted); margin-top:16px; line-height:1.5;">Each team member has a dedicated Member Agent that executes tasks, produces deliverables, and manages async review with the human owner.</p>
+        <p style="font-size:0.82rem; color:var(--ink-muted); margin-top:16px; line-height:1.5;">每位团队成员有专属的 Member Agent，负责执行任务、产出交付物、与人类 Owner 异步 Review。</p>
       </div>
     </div>
 
     <!-- Roles -->
-    <h3 style="font-family:var(--font-serif); font-size:1.4rem; margin-bottom:24px;">Four Stakeholders</h3>
+    <h3 style="font-family:var(--font-serif); font-size:1.4rem; margin-bottom:24px;">四个利益相关方</h3>
     <div class="roles-grid">
       <div class="role-card agent">
-        <span class="role-tag ai">AI Agent</span>
+        <span class="role-tag ai">AI AGENT</span>
+        <div class="role-icon"><i class="fa-solid fa-user-tie"></i></div>
         <h4>Project Agent</h4>
-        <p>The manager. Scans the environment, assigns tasks, tracks progress, reviews deliverables, discovers new work, escalates risks. Never produces deliverables directly.</p>
+        <p>管理者。扫描环境、分配任务、追踪进度、验收交付物、发现新工作、上报风险。不直接产出交付物。</p>
       </div>
       <div class="role-card agent">
-        <span class="role-tag ai">AI Agent</span>
+        <span class="role-tag ai">AI AGENT</span>
+        <div class="role-icon"><i class="fa-solid fa-code"></i></div>
         <h4>Member Agent</h4>
-        <p>The executor. One per team member. Deeply understands tasks, does the actual work (documents, code, research, analysis), submits for review, delivers approved results.</p>
+        <p>执行者。每位成员一个。深度理解任务，实际完成工作（文档、代码、调研、分析），提交 Review，交付已批准的成果。</p>
       </div>
       <div class="role-card human">
-        <span class="role-tag person">Human</span>
+        <span class="role-tag person">人类</span>
+        <div class="role-icon"><i class="fa-solid fa-crown"></i></div>
         <h4>Project Owner</h4>
-        <p>Initiates the project. Confirms plans, approves task breakdowns, receives risk escalations, makes strategic decisions when the Project Agent flags uncertainty.</p>
+        <p>项目发起人。确认计划、审批任务拆解、接收风险上报、在 Project Agent 标记不确定性时做出战略决策。</p>
       </div>
       <div class="role-card human">
-        <span class="role-tag person">Human</span>
+        <span class="role-tag person">人类</span>
+        <div class="role-icon"><i class="fa-solid fa-user-check"></i></div>
         <h4>Human Owner</h4>
-        <p>The team member. Reviews deliverables produced by their Member Agent, provides feedback or approval, gets asked for help when the agent is stuck.</p>
+        <p>团队成员本人。Review Member Agent 产出的交付物，提供修改反馈或批准，在 Agent 遇到困难时提供帮助。</p>
       </div>
     </div>
 
     <!-- Communication Flow -->
-    <h3 style="font-family:var(--font-serif); font-size:1.4rem; margin: 48px 0 24px;">Communication Flow</h3>
+    <h3 style="font-family:var(--font-serif); font-size:1.4rem; margin: 48px 0 24px;">通信流向</h3>
     <div class="comm-flow">
       <div class="comm-node">
-        <div class="comm-node-icon human-icon">👤</div>
+        <div class="comm-node-icon human-icon"><i class="fa-solid fa-crown"></i></div>
         <div class="comm-node-name">Project Owner</div>
-        <div class="comm-node-sub">Human</div>
+        <div class="comm-node-sub">人类</div>
       </div>
       <div class="comm-arrow">
-        <span class="comm-arrow-line">escalate / confirm</span>
-        <span class="comm-arrow-icon">◄ ─── ►</span>
+        <span class="comm-arrow-line">上报 / 确认</span>
+        <span class="comm-arrow-icon"><i class="fa-solid fa-arrows-left-right"></i></span>
         <span class="comm-arrow-line">escalate_to_owner()</span>
       </div>
       <div class="comm-node">
-        <div class="comm-node-icon ai-icon">🤖</div>
+        <div class="comm-node-icon ai-icon"><i class="fa-solid fa-user-tie"></i></div>
         <div class="comm-node-name">Project Agent</div>
-        <div class="comm-node-sub">AI — Manager</div>
+        <div class="comm-node-sub">AI — 管理者</div>
       </div>
       <div class="comm-arrow">
-        <span class="comm-arrow-line">assign / deliver</span>
-        <span class="comm-arrow-icon">◄ ─── ►</span>
+        <span class="comm-arrow-line">分配 / 交付</span>
+        <span class="comm-arrow-icon"><i class="fa-solid fa-arrows-left-right"></i></span>
         <span class="comm-arrow-line">concordia_agent_send() &middot; project_agent_comm()</span>
       </div>
       <div class="comm-node">
-        <div class="comm-node-icon ai-icon">🤖</div>
+        <div class="comm-node-icon ai-icon"><i class="fa-solid fa-code"></i></div>
         <div class="comm-node-name">Member Agent</div>
-        <div class="comm-node-sub">AI — Executor</div>
+        <div class="comm-node-sub">AI — 执行者</div>
       </div>
       <div class="comm-arrow">
-        <span class="comm-arrow-line">review / help</span>
-        <span class="comm-arrow-icon">◄ ─── ►</span>
+        <span class="comm-arrow-line">Review / 求助</span>
+        <span class="comm-arrow-icon"><i class="fa-solid fa-arrows-left-right"></i></span>
         <span class="comm-arrow-line">owner_comm()</span>
       </div>
       <div class="comm-node">
-        <div class="comm-node-icon human-icon">👤</div>
+        <div class="comm-node-icon human-icon"><i class="fa-solid fa-user-check"></i></div>
         <div class="comm-node-name">Human Owner</div>
-        <div class="comm-node-sub">Human</div>
+        <div class="comm-node-sub">人类</div>
       </div>
     </div>
   </div>
@@ -592,85 +594,85 @@
 <section class="section" id="skills">
   <div class="container">
     <div class="section-number">02</div>
-    <h2>Skill Matrix</h2>
-    <p class="section-lead">Eight skills form the complete system. Each has clearly defined inputs, outputs, interactions, and trigger conditions.</p>
+    <h2>技能矩阵</h2>
+    <p class="section-lead">八个技能构成完整系统。每个技能都有明确定义的输入、输出、交互方式和触发条件。</p>
 
     <div class="skill-table-wrap">
       <table>
         <thead>
           <tr>
-            <th>Skill</th>
-            <th>Input</th>
-            <th>What It Does</th>
-            <th>Output</th>
-            <th>Interaction</th>
-            <th>Trigger</th>
+            <th>技能</th>
+            <th>输入</th>
+            <th>做什么</th>
+            <th>产出</th>
+            <th>交互</th>
+            <th>触发条件</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>project-init</td>
-            <td>User verbal input</td>
-            <td>Guided conversation to collect project goals, deliverables, success criteria, timeline, and team</td>
+            <td>用户口述</td>
+            <td>引导式对话收集项目目标、交付物、成功标准、时间线、团队</td>
             <td><code>project.yaml</code></td>
-            <td><span class="tag tag-owner">Project Owner</span> multi-turn dialog</td>
-            <td>User says "new project"</td>
+            <td><span class="tag tag-owner"><i class="fa-solid fa-crown"></i> Project Owner</span> 多轮对话</td>
+            <td>用户说"新建项目"</td>
           </tr>
           <tr>
             <td>source-collection</td>
             <td><code>project.yaml</code></td>
-            <td>Read-all-then-judge: reads 2 weeks of emails, Teams, meetings + searches SharePoint & Web</td>
+            <td>逐条阅读 2 周内邮件/Teams/会议 + 搜索 SharePoint & Web</td>
             <td><code>Sources/</code> + <code>_index.md</code></td>
-            <td><span class="tag tag-none">None</span></td>
-            <td>After project.yaml created</td>
+            <td><span class="tag tag-none">无</span></td>
+            <td>project.yaml 创建后</td>
           </tr>
           <tr>
             <td>todo-breakdown</td>
             <td><code>project.yaml</code> + <code>Sources/</code></td>
-            <td>Meta-thinking self-audit → decompose tasks → assign owners → user confirms</td>
+            <td>meta-thinking 自审 &rarr; 拆解任务 &rarr; 分配 &rarr; 用户确认</td>
             <td><code>todos.md</code></td>
-            <td><span class="tag tag-owner">Project Owner</span> confirms plan</td>
-            <td>After source-collection</td>
+            <td><span class="tag tag-owner"><i class="fa-solid fa-crown"></i> Project Owner</span> 确认方案</td>
+            <td>source-collection 完成后</td>
           </tr>
           <tr>
             <td>project-heartbeat</td>
-            <td><code>project.yaml</code> + <code>todos.md</code> + latest 2 heartbeats + real-time scan (Teams, email, calendar, meetings)</td>
-            <td>Scan new content → add todos → assign / start / inquire / review → risk escalation</td>
-            <td>Updated <code>todos.md</code> + <code>Sources/</code> + <code>heartbeats/*.md</code></td>
-            <td><span class="tag tag-agent">Member Agent</span> assign/track &middot; <span class="tag tag-owner">Project Owner</span> escalation</td>
-            <td><span class="tag tag-schedule">Hourly</span> weekdays</td>
+            <td><code>project.yaml</code> + <code>todos.md</code> + 最近 2 条心跳 + 实时扫描（Teams、邮件、日历、会议）</td>
+            <td>扫描新内容 &rarr; 新增 Todo &rarr; 分配/启动/询问/验收 &rarr; 风险上报</td>
+            <td>更新 <code>todos.md</code> + <code>Sources/</code> + <code>heartbeats/*.md</code></td>
+            <td><span class="tag tag-agent"><i class="fa-solid fa-code"></i> Member Agent</span> 分配/追踪 &middot; <span class="tag tag-owner"><i class="fa-solid fa-crown"></i> Project Owner</span> 上报</td>
+            <td><span class="tag tag-schedule"><i class="fa-regular fa-clock"></i> 每小时</span> 工作日</td>
           </tr>
           <tr>
             <td>project-dashboard</td>
-            <td><code>project.yaml</code> + <code>todos.md</code> + latest 2 heartbeats</td>
-            <td>Generate full project status report</td>
+            <td><code>project.yaml</code> + <code>todos.md</code> + 最近 2 条心跳</td>
+            <td>生成项目状态全景报告</td>
             <td><code>dashboard.md</code></td>
-            <td><span class="tag tag-none">None</span></td>
-            <td>Post-heartbeat / manual</td>
+            <td><span class="tag tag-none">无</span></td>
+            <td>心跳后 / 手动</td>
           </tr>
           <tr>
             <td>todo-update</td>
-            <td><code>project.yaml</code> + <code>todos.md</code> + heartbeats + broad scan (Teams, email, calendar, meetings, Web, docs)</td>
-            <td>Collision: information meets goals → discover blind spots & opportunities → update todos</td>
-            <td>Updated <code>todos.md</code> + <code>heartbeats/*_todo-review.md</code></td>
-            <td><span class="tag tag-owner">Project Owner</span> for deprecated tasks</td>
-            <td><span class="tag tag-schedule">Daily</span></td>
+            <td><code>project.yaml</code> + <code>todos.md</code> + 心跳日志 + 广撒网扫描（Teams、邮件、日历、会议、Web、内部文档）</td>
+            <td>信息与目标碰撞 &rarr; 发现盲区和机会 &rarr; 更新 todos.md</td>
+            <td>更新 <code>todos.md</code> + <code>heartbeats/*_todo-review.md</code></td>
+            <td><span class="tag tag-owner"><i class="fa-solid fa-crown"></i> Project Owner</span> 确认废弃任务</td>
+            <td><span class="tag tag-schedule"><i class="fa-regular fa-clock"></i> 每天</span></td>
           </tr>
           <tr>
             <td>project-knowhow</td>
-            <td><code>project.yaml</code> + <code>todos.md</code> + today's heartbeats + <code>knowhow.md</code></td>
-            <td>Reflect on events → distill decisions, lessons, patterns, people insights, tools → ADD / REPLACE / EVICT</td>
-            <td><code>knowhow.md</code> (iterative single file)</td>
-            <td><span class="tag tag-none">None</span></td>
-            <td><span class="tag tag-schedule">Daily</span></td>
+            <td><code>project.yaml</code> + <code>todos.md</code> + 当天心跳 + <code>knowhow.md</code></td>
+            <td>反思当天事件 &rarr; 提炼决策/教训/模式/人员洞察/工具 &rarr; ADD/REPLACE/EVICT</td>
+            <td><code>knowhow.md</code>（单文件迭代更新）</td>
+            <td><span class="tag tag-none">无</span></td>
+            <td><span class="tag tag-schedule"><i class="fa-regular fa-clock"></i> 每天</span></td>
           </tr>
           <tr>
             <td>member-heartbeat</td>
-            <td><code>project.yaml</code> + <code>Sources/</code> + project <code>todos.md</code> + project heartbeats + <code>member-todos.md</code> + member heartbeats + owner comms (Teams, email, calendar, meetings) + Project Agent channel</td>
-            <td>Deep thinking → status-driven action: execute task / revise per feedback / deliver approved result; ask Project Agent when unclear, ask owner when stuck</td>
-            <td>Updated <code>member-todos.md</code> + <code>deliverables/&lt;task-id&gt;/</code> + <code>member-heartbeats/*.md</code></td>
-            <td><span class="tag tag-agent">Project Agent</span> ask/deliver &middot; <span class="tag tag-owner">Human Owner</span> review/help</td>
-            <td><span class="tag tag-schedule">Hourly</span> weekdays</td>
+            <td><code>project.yaml</code> + <code>Sources/</code> + 项目 <code>todos.md</code> + 项目心跳 + <code>member-todos.md</code> + 成员心跳 + Owner 通信 + Project Agent 频道</td>
+            <td>深度思考 &rarr; 按状态分支：执行任务 / 根据反馈修改 / 交付已批准成果；向 Project Agent 提问，向 Owner 求助</td>
+            <td>更新 <code>member-todos.md</code> + <code>deliverables/&lt;task-id&gt;/</code> + <code>member-heartbeats/*.md</code></td>
+            <td><span class="tag tag-agent"><i class="fa-solid fa-user-tie"></i> Project Agent</span> 提问/交付 &middot; <span class="tag tag-owner"><i class="fa-solid fa-user-check"></i> Human Owner</span> Review/求助</td>
+            <td><span class="tag tag-schedule"><i class="fa-regular fa-clock"></i> 每小时</span> 工作日</td>
           </tr>
         </tbody>
       </table>
@@ -682,83 +684,83 @@
 <section class="section" id="files">
   <div class="container">
     <div class="section-number">03</div>
-    <h2>File Registry</h2>
-    <p class="section-lead">Every file in the system has a clear owner (who writes it) and consumers (who reads it). Nothing is ambiguous.</p>
+    <h2>文件清单</h2>
+    <p class="section-lead">系统中每个文件都有明确的创建者和消费者，没有模糊地带。</p>
 
     <div class="file-grid">
       <div class="file-group">
-        <h4>Project Definition</h4>
+        <h4><i class="fa-solid fa-bullseye"></i> 项目定义</h4>
         <div class="file-item">
           <span class="file-name">project.yaml</span>
-          <span class="file-meta">Written by project-init · Read by all</span>
+          <span class="file-meta">project-init 创建 &middot; 全部技能读取</span>
         </div>
       </div>
 
       <div class="file-group">
-        <h4>Task Management</h4>
+        <h4><i class="fa-solid fa-list-check"></i> 任务管理</h4>
         <div class="file-item">
           <span class="file-name">todos.md</span>
-          <span class="file-meta">Written by todo-breakdown, project-heartbeat, todo-update</span>
+          <span class="file-meta">todo-breakdown / project-heartbeat / todo-update 写入</span>
         </div>
         <div class="file-item">
           <span class="file-name">member-todos.md</span>
-          <span class="file-meta">Written by member-heartbeat</span>
+          <span class="file-meta">member-heartbeat 写入</span>
         </div>
       </div>
 
       <div class="file-group">
-        <h4>Sources/</h4>
+        <h4><i class="fa-solid fa-database"></i> Sources/</h4>
         <div class="file-item">
           <span class="file-name">_index.md</span>
-          <span class="file-meta">Master index of all sources</span>
+          <span class="file-meta">材料主索引</span>
         </div>
         <div class="file-item">
           <span class="file-name">emails/</span>
-          <span class="file-meta">Email thread archives</span>
+          <span class="file-meta">邮件线程存档</span>
         </div>
         <div class="file-item">
           <span class="file-name">teams/</span>
-          <span class="file-meta">Teams conversation archives</span>
+          <span class="file-meta">Teams 对话存档</span>
         </div>
         <div class="file-item">
           <span class="file-name">meetings/</span>
-          <span class="file-meta">Meeting transcripts & recaps</span>
+          <span class="file-meta">会议记录与转写</span>
         </div>
         <div class="file-item">
           <span class="file-name">sharepoint/</span>
-          <span class="file-meta">SharePoint / OneDrive docs</span>
+          <span class="file-meta">SharePoint / OneDrive 文档</span>
         </div>
         <div class="file-item">
           <span class="file-name">web/</span>
-          <span class="file-meta">Web research results</span>
+          <span class="file-meta">网络调研结果</span>
         </div>
       </div>
 
       <div class="file-group">
-        <h4>Logs & Reports</h4>
+        <h4><i class="fa-solid fa-chart-line"></i> 日志与报告</h4>
         <div class="file-item">
           <span class="file-name">heartbeats/*.md</span>
-          <span class="file-meta">Project Agent heartbeat logs</span>
+          <span class="file-meta">Project Agent 心跳日志</span>
         </div>
         <div class="file-item">
           <span class="file-name">member-heartbeats/*.md</span>
-          <span class="file-meta">Member Agent heartbeat logs</span>
+          <span class="file-meta">Member Agent 心跳日志</span>
         </div>
         <div class="file-item">
           <span class="file-name">dashboard.md</span>
-          <span class="file-meta">Project status report</span>
+          <span class="file-meta">项目状态报告</span>
         </div>
         <div class="file-item">
           <span class="file-name">knowhow.md</span>
-          <span class="file-meta">Accumulated project knowledge</span>
+          <span class="file-meta">项目经验知识库</span>
         </div>
       </div>
 
       <div class="file-group" style="grid-column: 1 / -1;">
-        <h4>Deliverables</h4>
+        <h4><i class="fa-solid fa-box-open"></i> 交付物</h4>
         <div class="file-item">
           <span class="file-name">deliverables/&lt;task-id&gt;/</span>
-          <span class="file-meta">Member Agent produces · Project Agent reviews · contains _submission.md with revision history</span>
+          <span class="file-meta">Member Agent 产出 &middot; Project Agent 验收 &middot; 包含 _submission.md 修订历史</span>
         </div>
       </div>
     </div>
@@ -769,77 +771,77 @@
 <section class="section" id="apis">
   <div class="container">
     <div class="section-number">04</div>
-    <h2>APIs &amp; External Data Sources</h2>
-    <p class="section-lead">Four placeholder APIs handle inter-agent and human communication. Eight M365 and web data sources feed project intelligence.</p>
+    <h2>API 与外部数据源</h2>
+    <p class="section-lead">四个占位 API 处理 Agent 间及人机通信，八个 M365 和 Web 数据源提供项目情报。</p>
 
-    <h3 style="font-family:var(--font-serif); font-size:1.3rem; margin-bottom:20px;">Communication APIs</h3>
+    <h3 style="font-family:var(--font-serif); font-size:1.3rem; margin-bottom:20px;"><i class="fa-solid fa-plug" style="color:var(--accent); margin-right:8px;"></i>通信 API</h3>
     <div class="api-grid">
       <div class="api-card">
         <h4>concordia_agent_send()</h4>
-        <div class="api-direction">Project Agent → Member Agent</div>
-        <p class="api-purpose">Assign tasks, inquire progress, send review feedback, notify priority changes, cancel tasks.</p>
-        <span class="api-status placeholder">Placeholder</span>
+        <div class="api-direction"><i class="fa-solid fa-user-tie" style="color:var(--accent);"></i> Project Agent &rarr; <i class="fa-solid fa-code" style="color:var(--accent);"></i> Member Agent</div>
+        <p class="api-purpose">分配任务、询问进度、发送 Review 反馈、通知优先级变更、取消任务。</p>
+        <span class="api-status placeholder"><i class="fa-solid fa-flask"></i> 占位</span>
       </div>
       <div class="api-card">
         <h4>escalate_to_owner()</h4>
-        <div class="api-direction">Project Agent → Project Owner</div>
-        <p class="api-purpose">Risk escalation, decision requests, deprecated task confirmation, critical blockers.</p>
-        <span class="api-status placeholder">Placeholder</span>
+        <div class="api-direction"><i class="fa-solid fa-user-tie" style="color:var(--accent);"></i> Project Agent &rarr; <i class="fa-solid fa-crown" style="color:var(--success);"></i> Project Owner</div>
+        <p class="api-purpose">风险上报、决策请求、废弃任务确认、关键阻塞。</p>
+        <span class="api-status placeholder"><i class="fa-solid fa-flask"></i> 占位</span>
       </div>
       <div class="api-card">
         <h4>project_agent_comm()</h4>
-        <div class="api-direction">Member Agent → Project Agent</div>
-        <p class="api-purpose">Ask clarifying questions, report progress, deliver approved results with full file paths.</p>
-        <span class="api-status placeholder">Placeholder</span>
+        <div class="api-direction"><i class="fa-solid fa-code" style="color:var(--accent);"></i> Member Agent &rarr; <i class="fa-solid fa-user-tie" style="color:var(--accent);"></i> Project Agent</div>
+        <p class="api-purpose">提问澄清、报告进度、交付已批准成果（附完整文件路径）。</p>
+        <span class="api-status placeholder"><i class="fa-solid fa-flask"></i> 占位</span>
       </div>
       <div class="api-card">
         <h4>owner_comm()</h4>
-        <div class="api-direction">Member Agent → Human Owner</div>
-        <p class="api-purpose">Request deliverable review, ask for help when stuck, receive modification feedback or approval.</p>
-        <span class="api-status placeholder">Placeholder</span>
+        <div class="api-direction"><i class="fa-solid fa-code" style="color:var(--accent);"></i> Member Agent &rarr; <i class="fa-solid fa-user-check" style="color:var(--success);"></i> Human Owner</div>
+        <p class="api-purpose">请求交付物 Review、遇到困难时求助、接收修改反馈或批准。</p>
+        <span class="api-status placeholder"><i class="fa-solid fa-flask"></i> 占位</span>
       </div>
     </div>
 
-    <h3 style="font-family:var(--font-serif); font-size:1.3rem; margin: 40px 0 20px;">External Data Sources</h3>
+    <h3 style="font-family:var(--font-serif); font-size:1.3rem; margin: 40px 0 20px;"><i class="fa-solid fa-satellite-dish" style="color:var(--accent); margin-right:8px;"></i>外部数据源</h3>
     <div class="source-list">
       <div class="source-item">
-        <div class="source-icon">📧</div>
-        <div class="source-name">Outlook Email</div>
+        <div class="source-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="source-name">Outlook 邮件</div>
         <div class="source-tool">email-tools</div>
       </div>
       <div class="source-item">
-        <div class="source-icon">💬</div>
-        <div class="source-name">Teams Chat</div>
+        <div class="source-icon"><i class="fa-solid fa-comments"></i></div>
+        <div class="source-name">Teams 聊天</div>
         <div class="source-tool">ms-teams-chat</div>
       </div>
       <div class="source-item">
-        <div class="source-icon">🎙️</div>
-        <div class="source-name">Teams Meetings</div>
+        <div class="source-icon"><i class="fa-solid fa-video"></i></div>
+        <div class="source-name">Teams 会议</div>
         <div class="source-tool">ms-teams-meetings</div>
       </div>
       <div class="source-item">
-        <div class="source-icon">📅</div>
-        <div class="source-name">Calendar</div>
+        <div class="source-icon"><i class="fa-solid fa-calendar-days"></i></div>
+        <div class="source-name">日历</div>
         <div class="source-tool">calendar</div>
       </div>
       <div class="source-item">
-        <div class="source-icon">📁</div>
+        <div class="source-icon"><i class="fa-solid fa-folder-open"></i></div>
         <div class="source-name">SharePoint</div>
         <div class="source-tool">ms-m365-files</div>
       </div>
       <div class="source-item">
-        <div class="source-icon">🌐</div>
-        <div class="source-name">Web Search</div>
+        <div class="source-icon"><i class="fa-solid fa-globe"></i></div>
+        <div class="source-name">Web 搜索</div>
         <div class="source-tool">WebSearch + WebFetch</div>
       </div>
       <div class="source-item">
-        <div class="source-icon">📄</div>
-        <div class="source-name">Internal Docs</div>
+        <div class="source-icon"><i class="fa-solid fa-file-lines"></i></div>
+        <div class="source-name">内部文档</div>
         <div class="source-tool">workiq</div>
       </div>
       <div class="source-item">
-        <div class="source-icon">🏢</div>
-        <div class="source-name">Org Hierarchy</div>
+        <div class="source-icon"><i class="fa-solid fa-sitemap"></i></div>
+        <div class="source-name">组织架构</div>
         <div class="source-tool">ms-org-hierarchy</div>
       </div>
     </div>
@@ -850,44 +852,44 @@
 <section class="section" id="dataflow">
   <div class="container">
     <div class="section-number">05</div>
-    <h2>Data Flow</h2>
-    <p class="section-lead">How information moves through the system — from external data sources through AI agents to human stakeholders.</p>
+    <h2>数据流</h2>
+    <p class="section-lead">信息如何在系统中流动——从外部数据源，经过 AI Agent，到达人类决策者。</p>
 
     <div class="dataflow">
       <pre>
-  M365 Data Sources                  File System                         Humans
-  ─────────────────                  ───────────                         ──────
+  M365 数据源                        文件系统                             人类
+  ─────────────                      ────────                             ────
 
-  Outlook Email ─┐
-  Teams Chat ────┤
-  Teams Meetings ┤   ┌──────────────────┐
-  Calendar ──────┼──►│ source-collection │──────► Sources/ + _index.md
+  Outlook 邮件 ──┐
+  Teams 聊天 ────┤
+  Teams 会议 ────┤   ┌──────────────────┐
+  日历 ──────────┼──►│ source-collection │──────► Sources/ + _index.md
   SharePoint ────┤   └──────────────────┘              │
-  Web Search ────┘                                     ▼
+  Web 搜索 ──────┘                                     ▼
                                                ┌───────────────┐
                       Project Owner ──────────►│ project-init  │──► project.yaml
-                        (dialog)               └───────────────┘         │
+                        (对话)                 └───────────────┘         │
                                                                         ▼
                                                ┌───────────────┐
                       Project Owner ◄──────────│ todo-breakdown │──► todos.md
-                        (confirm)              └───────────────┘         │
+                        (确认)                 └───────────────┘         │
                                                                         │
                     ┌───────────────────────────┬───────────────────────┐│
                     ▼                           ▼                       ▼▼
              ┌──────────────┐          ┌───────────────┐        ┌──────────────┐
   M365 ─────►│ project-     │ M365 ──►│ todo-update   │ M365 ─►│ member-      │
-             │ heartbeat    │          │ (daily)       │        │ heartbeat    │
-             │ (hourly)     │          └───────┬───────┘        │ (hourly)     │
+             │ heartbeat    │          │ (每天)        │        │ heartbeat    │
+             │ (每小时)     │          └───────┬───────┘        │ (每小时)     │
              └──────┬───────┘                  │                └──────┬───────┘
                     │                          │                       │
         ┌───────────┼──────────┐               │                ┌──────┼──────────┐
         ▼           ▼          ▼               ▼                ▼      ▼          ▼
    todos.md    Sources/   heartbeats/     todos.md        member-  deliverables/ member-
-   (updated)   (updated)                  (updated)       todos.md              heartbeats/
+   (更新)      (更新)                     (更新)          todos.md              heartbeats/
         │                                                                │
         ▼                                                                ▼
    ┌────────────┐    ┌───────────────┐                            Human Owner
-   │ project-   │    │ project-      │                             (review)
+   │ project-   │    │ project-      │                             (Review)
    │ dashboard  │    │ knowhow       │
    └─────┬──────┘    └───────┬───────┘
          ▼                   ▼
@@ -899,8 +901,8 @@
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
-    <p>Concordia Project Agent System &middot; Architecture Documentation</p>
-    <p style="margin-top:8px;">Built by <a href="https://github.com/YanaYuan" target="_blank">YanaYuan</a></p>
+    <p>Concordia 项目 Agent 系统 &middot; 架构文档</p>
+    <p style="margin-top:8px;">由 <a href="https://github.com/YanaYuan" target="_blank">YanaYuan</a> 构建</p>
   </div>
 </footer>
 
