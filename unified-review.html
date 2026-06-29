@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Review — Skill 介绍</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242836;
+    --border: #2e3345;
+    --text: #e4e6ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c8aff;
+    --accent2: #a78bfa;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1040 0%, #0f1117 50%, #0a1628 100%);
+    padding: 80px 40px 60px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 60% 40%, rgba(167,139,250,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero h1 { font-size: 2.8em; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; position: relative; }
+  .hero h1 span { color: var(--accent2); }
+  .hero .subtitle { font-size: 1.15em; color: var(--text-dim); max-width: 700px; margin: 0 auto; position: relative; }
+  .hero .badge { display: inline-block; margin-top: 20px; padding: 6px 16px; background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.25); border-radius: 20px; font-size: 0.85em; color: var(--accent2); position: relative; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+  h2 { font-size: 1.6em; font-weight: 600; margin-bottom: 24px; letter-spacing: -0.02em; }
+  h2 .emoji { margin-right: 8px; }
+  h3 { font-size: 1.15em; font-weight: 600; margin: 28px 0 12px; color: var(--accent2); }
+  p { margin-bottom: 16px; }
+  p.dim { color: var(--text-dim); font-size: 0.95em; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--accent2); }
+  .card .icon { font-size: 1.8em; margin-bottom: 12px; display: block; }
+  .card h4 { font-size: 1.05em; font-weight: 600; margin-bottom: 8px; }
+  .card p { font-size: 0.9em; color: var(--text-dim); margin: 0; }
+
+  /* Flow */
+  .flow { display: flex; flex-direction: column; gap: 0; margin: 24px 0; }
+  .flow-step { display: flex; align-items: flex-start; gap: 16px; position: relative; }
+  .flow-step::before { content: ''; position: absolute; left: 19px; top: 44px; bottom: -20px; width: 2px; background: var(--border); }
+  .flow-step:last-child::before { display: none; }
+  .flow-num { width: 40px; height: 40px; border-radius: 50%; background: var(--surface2); border: 2px solid var(--accent2); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9em; color: var(--accent2); flex-shrink: 0; position: relative; z-index: 1; }
+  .flow-content { padding: 8px 0 32px; flex: 1; }
+  .flow-content h4 { font-size: 1em; font-weight: 600; margin-bottom: 4px; }
+  .flow-content p { font-size: 0.9em; color: var(--text-dim); margin: 0; }
+
+  /* Chat demo */
+  .chat-demo { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 24px 0; }
+  .chat-msg { margin-bottom: 16px; padding: 12px 16px; border-radius: 10px; max-width: 85%; }
+  .chat-msg.agent { background: var(--surface2); border: 1px solid var(--border); margin-right: auto; }
+  .chat-msg.user { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2); margin-left: auto; text-align: right; }
+  .chat-msg .sender { font-size: 0.75em; color: var(--text-dim); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .chat-msg .text { font-size: 0.9em; }
+  .chat-msg .text strong { color: var(--accent2); }
+  .chat-msg .meta { font-size: 0.8em; color: var(--text-dim); margin-top: 6px; }
+
+  /* Lifecycle */
+  .lifecycle { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin: 24px 0; text-align: center; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85em; line-height: 2.4; color: var(--text-dim); }
+  .lifecycle .highlight { color: var(--accent2); font-weight: 600; }
+  .lifecycle .green { color: var(--green); font-weight: 600; }
+  .lifecycle .arrow { color: var(--text-dim); margin: 0 6px; }
+
+  /* Principles */
+  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .principle { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; font-size: 0.9em; }
+  .principle strong { color: var(--accent2); display: block; margin-bottom: 4px; }
+  .principle span { color: var(--text-dim); }
+
+  /* DO/DON'T */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .do-box, .dont-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .do-box { border-top: 3px solid var(--green); }
+  .dont-box { border-top: 3px solid var(--red); }
+  .do-box h4, .dont-box h4 { margin-bottom: 12px; font-size: 1em; }
+  .do-box h4 { color: var(--green); }
+  .dont-box h4 { color: var(--red); }
+  .do-box ul, .dont-box ul { list-style: none; padding: 0; font-size: 0.85em; color: var(--text-dim); }
+  .do-box li, .dont-box li { padding: 4px 0; }
+  .do-box li::before { content: '✓ '; color: var(--green); }
+  .dont-box li::before { content: '✗ '; color: var(--red); }
+
+  /* Response table */
+  .response-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; }
+  .response-table th { text-align: left; padding: 10px 14px; background: var(--surface2); color: var(--text-dim); font-weight: 600; font-size: 0.85em; border-bottom: 1px solid var(--border); }
+  .response-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .response-table tr:hover td { background: rgba(167,139,250,0.04); }
+  .response-table code { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+
+  footer { text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.85em; border-top: 1px solid var(--border); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 20px 40px; }
+    .hero h1 { font-size: 2em; }
+    .container { padding: 0 16px; }
+    .card-grid, .principles, .do-dont { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Unified <span>Review</span></h1>
+  <p class="subtitle">心跳的另一面——用自然对话的方式，帮你过一遍所有项目的待决策事项，确认即执行。</p>
+  <span class="badge">concordia-pmo-manager / skills / unified-review</span>
+</div>
+
+<div class="container">
+
+<!-- What -->
+<section>
+  <h2><span class="emoji">💡</span>这是什么</h2>
+  <p><strong>Unified Review</strong> 是 <strong>Unified Heartbeat</strong> 的人类面对面伙伴。心跳在后台自动扫描、思考、执行白名单内的工作；Review 把心跳产出的"需要你拍板"的内容，以<strong>自然对话</strong>的方式一个一个呈现给你，你说一句话就执行。</p>
+
+  <div class="lifecycle">
+    <span class="highlight">心跳（自动）</span>
+    <span class="arrow">→</span>
+    发现任务
+    <span class="arrow">→</span>
+    白名单允许？
+    <span class="arrow">→</span>
+    <span class="green">✅ 直接执行</span>
+    <br>
+    <span style="opacity:0">心跳（自动）→ 发现任务 →</span>
+    白名单不允许？
+    <span class="arrow">→</span>
+    写入日志等 Review
+    <br><br>
+    <span class="highlight">Review（你在场）</span>
+    <span class="arrow">→</span>
+    呈现决策
+    <span class="arrow">→</span>
+    你 approve？
+    <span class="arrow">→</span>
+    <span class="green">✅ 当场执行</span>
+    <br>
+    <span style="opacity:0">Review（你在场）→ 呈现决策 →</span>
+    你 reject/defer？
+    <span class="arrow">→</span>
+    记录，下一条
+  </div>
+
+  <p class="dim"><strong>核心原则：</strong>approve 即执行。不存在"approve 了但留到下次心跳做"的中间态——你在场就是最高权限，没有理由延迟。</p>
+</section>
+
+<!-- Trigger -->
+<section>
+  <h2><span class="emoji">🎯</span>如何触发</h2>
+  <p>你随时可以说：</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="icon">💬</span>
+      <h4>"review"</h4>
+      <p>或 "过一下"、"有什么需要我看的"</p>
+    </div>
+    <div class="card">
+      <span class="icon">⏰</span>
+      <h4>定时提醒</h4>
+      <p>可配合 cron 每天某个时间提醒你 review</p>
+    </div>
+  </div>
+</section>
+
+<!-- Flow -->
+<section>
+  <h2><span class="emoji">⚡</span>执行流程</h2>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">0</div>
+      <div class="flow-content">
+        <h4>收集上下文（静默）</h4>
+        <p>读所有项目的 PROJECT.md、你的 todos、Planner 任务、最新心跳日志和上次 review log。数出总决策点，按紧急度排序。你看不到这一步。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <h4>简报（每个项目开头）</h4>
+        <p>2-4 句话告诉你：心跳发现了什么、有什么风险、接下来有几个决策点。纯 FYI，不需要你做任何事。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <h4>逐条呈现决策</h4>
+        <p>Phase A（资料收集）→ Phase B（执行决策），一次一个，带建议、理由、风险、进度 [N/Total]。建议不收的自动跳过。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <h4>你回复 → 立即执行 + 立即写 log</h4>
+        <p>每个决策完成后立刻执行、立刻持久化。即使 session 中途断了，已做的决策不丢。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <h4>跨项目切换</h4>
+        <p>一个项目过完 → 一句话收尾 → 自然过渡到下一个项目的简报。</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <h4>总结收尾</h4>
+        <p>所有项目过完，3-5 个 bullet 总结做了什么。内部 log 补个 summary。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo -->
+<section>
+  <h2><span class="emoji">💬</span>对话示例</h2>
+
+  <div class="chat-demo">
+    <div class="chat-msg agent">
+      <div class="sender">Yava 🦊</div>
+      <div class="text">📋 两个项目需要过一下。代参会 V2 有 5 个素材 + 2 个执行决策，产品实习生招聘有个时间风险。先从代参会开始。</div>
+    </div>
+
+    <div class="chat-msg agent">
+      <div class="text"><strong>代参会 V2 [1/7]</strong> — 6/23 Teams 群聊：三种参会模式讨论<br><br>🔗 Teams 群聊链接<br>👥 Yana, Aibo, Yuecong, Dongyang, Jian<br><br><strong>建议：收。</strong>产品方向源头定义，后续 scope 对齐会引用。<br><strong>风险：无。</strong><br><br>收吗？</div>
+    </div>
+
+    <div class="chat-msg user">
+      <div class="sender">Yana</div>
+      <div class="text">收</div>
+    </div>
+
+    <div class="chat-msg agent">
+      <div class="text">✅ 已收进项目资料库。</div>
+    </div>
+
+    <div class="chat-msg agent">
+      <div class="text"><strong>代参会 V2 [2/7]</strong> — 6/23 Memory/Project Agent 会议纪要<br><br>🔗 会议链接<br>👥 Yuecong (组织者), Yana, Dongyang, Jian<br><br><strong>建议：收。</strong>知识摄取 + Bot 查询是 recap 回流的前置依赖。<br><strong>风险：无。</strong><br><br>收吗？</div>
+    </div>
+
+    <div class="chat-msg user">
+      <div class="sender">Yana</div>
+      <div class="text">后面都收</div>
+    </div>
+
+    <div class="chat-msg agent">
+      <div class="text">✅ 剩余 4 个已全部收进项目资料库。</div>
+    </div>
+
+    <div class="chat-msg agent">
+      <div class="text"><strong>代参会 V2 [7/7]</strong> — 把 MVP PRD 发到项目频道让团队对齐 scope<br><br><strong>建议：发。</strong>PRD 明确了 V2 = 静默旁听，团队还在发散。<br><strong>风险：不对齐 → 返工。</strong><br><br>要发吗？</div>
+    </div>
+
+    <div class="chat-msg user">
+      <div class="sender">Yana</div>
+      <div class="text">发，告诉团队上下文</div>
+    </div>
+
+    <div class="chat-msg agent">
+      <div class="text">✅ 已发到项目频道，@了 Dongyang、Jian、Aibo。<br><br>代参会 V2 过完了。接下来看产品实习生招聘。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Response handling -->
+<section>
+  <h2><span class="emoji">🎮</span>你可以怎么回复</h2>
+
+  <table class="response-table">
+    <thead>
+      <tr><th>你说</th><th>我做什么</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>收</code> / <code>好</code> / <code>可以</code></td><td>立即执行，一句话确认</td></tr>
+      <tr><td><code>不收</code> / <code>跳过</code></td><td>记录 rejected，下一条</td></tr>
+      <tr><td><code>后面都收</code> / <code>剩下的都收</code></td><td>批量执行同类剩余项</td></tr>
+      <tr><td><code>以后再说</code> / <code>defer</code></td><td>标记 deferred，写入待办，下次心跳不再重复提</td></tr>
+      <tr><td><code>先看别的项目</code></td><td>切换项目，回头再来</td></tr>
+      <tr><td>问一个问题</td><td>回答你，然后重新呈现当前决策点</td></tr>
+      <tr><td>给别的指令</td><td>按你说的做，记录到 log</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Two phases -->
+<section>
+  <h2><span class="emoji">📋</span>两个阶段</h2>
+  <p class="dim">每个项目内的决策按固定顺序呈现：</p>
+
+  <div class="card-grid">
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <span class="icon">📂</span>
+      <h4>Phase A — 资料收集</h4>
+      <p>心跳扫到的相关素材，问你要不要收进项目资料库。快速 yes/no，节奏快。<br><br><strong>建议不收的自动跳过</strong>——只呈现建议收的。</p>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--accent2);">
+      <span class="icon">⚡</span>
+      <h4>Phase B — 执行决策</h4>
+      <p>心跳想做但白名单挡住的操作：创建任务、发消息给团队、更新状态等。需要你多想一下。</p>
+    </div>
+  </div>
+</section>
+
+<!-- What it reads -->
+<section>
+  <h2><span class="emoji">📖</span>开始前读什么</h2>
+  <p class="dim">Review 独立于心跳运行——即使不在同一个 session，也能获取完整上下文：</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="icon">📄</span>
+      <h4>PROJECT.md</h4>
+      <p>项目目标、团队、deadline</p>
+    </div>
+    <div class="card">
+      <span class="icon">✅</span>
+      <h4>你的待办清单</h4>
+      <p>当前任务和状态</p>
+    </div>
+    <div class="card">
+      <span class="icon">📊</span>
+      <h4>Planner 任务</h4>
+      <p>已有任务、分配、进度</p>
+    </div>
+    <div class="card">
+      <span class="icon">📝</span>
+      <h4>心跳日志</h4>
+      <p>上次 review 后的所有 uh- log</p>
+    </div>
+    <div class="card">
+      <span class="icon">🔄</span>
+      <h4>上次 Review log</h4>
+      <p>避免重复问已决策的事</p>
+    </div>
+  </div>
+</section>
+
+<!-- Permissions -->
+<section>
+  <h2><span class="emoji">🔓</span>执行权限</h2>
+  <p>Review 时你在场 = 最高权限。心跳做不了的事，review 时都能做：</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="icon">📂</span>
+      <h4>收录资料</h4>
+      <p>写入项目资料库（心跳不能自动 file）</p>
+    </div>
+    <div class="card">
+      <span class="icon">📋</span>
+      <h4>创建 Planner 任务</h4>
+      <p>分配给团队成员</p>
+    </div>
+    <div class="card">
+      <span class="icon">💬</span>
+      <h4>给团队发消息</h4>
+      <p>经你确认内容后发送</p>
+    </div>
+    <div class="card">
+      <span class="icon">📦</span>
+      <h4>提交交付物</h4>
+      <p>写入 deliverables/</p>
+    </div>
+  </div>
+</section>
+
+<!-- Persistence -->
+<section>
+  <h2><span class="emoji">💾</span>即时持久化</h2>
+  <p>每个决策完成后<strong>立即写入 review log + 更新状态</strong>，不等到最后批量写。</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="icon">🛡️</span>
+      <h4>断点安全</h4>
+      <p>session 中途断了也不丢已做的决策</p>
+    </div>
+    <div class="card">
+      <span class="icon">🔄</span>
+      <h4>心跳闭环</h4>
+      <p>已 review 的 proposal 标记完成，下次心跳不重复提</p>
+    </div>
+    <div class="card">
+      <span class="icon">⏸️</span>
+      <h4>Defer 也安全</h4>
+      <p>"以后再说"的写入待办，心跳通过待办就知道不用再提</p>
+    </div>
+  </div>
+</section>
+
+<!-- Style guide -->
+<section>
+  <h2><span class="emoji">🎨</span>对话风格</h2>
+
+  <div class="do-dont">
+    <div class="do-box">
+      <h4>✓ DO</h4>
+      <ul>
+        <li>像同事给 brief，不像系统报告</li>
+        <li>用业务语言（"项目资料库"、"项目频道"）</li>
+        <li>每条都给建议 + 理由</li>
+        <li>支持"都收"批量操作</li>
+        <li>附原链接和参与人</li>
+        <li>允许打断、提问、换方向</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h4>✗ DON'T</h4>
+      <ul>
+        <li>暴露文件路径、ID、内部结构</li>
+        <li>一次给多个决策</li>
+        <li>倒一大堆内容摘要</li>
+        <li>问"先看哪个项目？"</li>
+        <li>说"根据心跳日志分析..."</li>
+        <li>告诉用户"我在写 log"</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Principles -->
+<section>
+  <h2><span class="emoji">🧭</span>设计原则</h2>
+  <div class="principles">
+    <div class="principle">
+      <strong>简报在前</strong>
+      <span>先给上下文再问决策，让用户知道全貌</span>
+    </div>
+    <div class="principle">
+      <strong>一次一个决策</strong>
+      <span>不 overwhelm；想快可以说"都收"</span>
+    </div>
+    <div class="principle">
+      <strong>资料在前，执行在后</strong>
+      <span>快决策（yes/no）先过完，再处理需要思考的</span>
+    </div>
+    <div class="principle">
+      <strong>永远有建议</strong>
+      <span>agent 有观点，不是中立陈列选项</span>
+    </div>
+    <div class="principle">
+      <strong>链接优先</strong>
+      <span>用户想看细节点链接，agent 只说为什么</span>
+    </div>
+    <div class="principle">
+      <strong>业务语言</strong>
+      <span>用户永远看不到文件路径和系统 ID</span>
+    </div>
+    <div class="principle">
+      <strong>进度可见</strong>
+      <span>[N/Total] 让用户随时知道还剩多少</span>
+    </div>
+    <div class="principle">
+      <strong>approve 即执行</strong>
+      <span>不存在"approve 了但留到下次做"的情况</span>
+    </div>
+  </div>
+</section>
+
+<!-- Relationship -->
+<section>
+  <h2><span class="emoji">🔗</span>与 Unified Heartbeat 的关系</h2>
+  <div class="lifecycle">
+    <span class="highlight">Heartbeat</span>（自动、静默、每小时）
+    <br>
+    扫描 7 信源 → 发现任务 → 白名单内直接做 → 白名单外写日志
+    <br><br>
+    ↓ 产出日志 + proposals + todos ↓
+    <br><br>
+    <span class="highlight">Review</span>（手动触发、对话式、你在场）
+    <br>
+    读日志 → 呈现待决策 → 你 approve → 当场执行 → 写 review log
+    <br><br>
+    ↓ 更新 todos + 标记已处理 ↓
+    <br><br>
+    <span class="highlight">下次 Heartbeat</span> 读 todos → 知道什么已处理 → 不重复
+  </div>
+</section>
+
+</div>
+
+<footer>
+  Unified Review &middot; concordia-pmo-manager &middot; 2026
+</footer>
+
+</body>
+</html>
