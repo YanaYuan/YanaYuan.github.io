@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Heartbeat — Skill 介绍</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242836;
+    --border: #2e3345;
+    --text: #e4e6ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c8aff;
+    --accent2: #a78bfa;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --cyan: #22d3ee;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a1040 0%, #0f1117 50%, #0a1628 100%);
+    padding: 80px 40px 60px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(108,138,255,0.06) 0%, transparent 60%),
+                radial-gradient(circle at 70% 60%, rgba(167,139,250,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-size: 2.8em;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero .subtitle {
+    font-size: 1.15em;
+    color: var(--text-dim);
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero .badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 6px 16px;
+    background: rgba(108,138,255,0.12);
+    border: 1px solid rgba(108,138,255,0.25);
+    border-radius: 20px;
+    font-size: 0.85em;
+    color: var(--accent);
+    position: relative;
+  }
+
+  /* Container */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Section */
+  section {
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-child { border-bottom: none; }
+
+  h2 {
+    font-size: 1.6em;
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  h2 .emoji { margin-right: 8px; }
+
+  h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin: 28px 0 12px;
+    color: var(--accent2);
+  }
+
+  p { margin-bottom: 16px; color: var(--text); }
+  p.dim { color: var(--text-dim); font-size: 0.95em; }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .icon {
+    font-size: 1.8em;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .card h4 {
+    font-size: 1.05em;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .card p { font-size: 0.9em; color: var(--text-dim); margin: 0; }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+  }
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 44px;
+    bottom: -20px;
+    width: 2px;
+    background: var(--border);
+  }
+  .flow-step:last-child::before { display: none; }
+  .flow-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9em;
+    color: var(--accent);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .flow-content {
+    padding: 8px 0 32px;
+    flex: 1;
+  }
+  .flow-content h4 {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .flow-content p {
+    font-size: 0.9em;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  /* Source table */
+  .source-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.9em;
+  }
+  .source-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background: var(--surface2);
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+  .source-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .source-table tr:hover td { background: rgba(108,138,255,0.04); }
+  .tier-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+  .tier-1 { background: rgba(52,211,153,0.15); color: var(--green); }
+  .tier-2 { background: rgba(251,191,36,0.15); color: var(--amber); }
+
+  /* Role cards */
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .role-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .role-card.owner { border-left: 3px solid var(--accent); }
+  .role-card.member { border-left: 3px solid var(--green); }
+  .role-card h4 { margin-bottom: 8px; }
+  .role-card ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9em;
+    color: var(--text-dim);
+  }
+  .role-card li { padding: 4px 0; }
+  .role-card li::before {
+    content: '→ ';
+    color: var(--text-dim);
+  }
+
+  /* White-list */
+  .wl-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .wl-section h4 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .wl-allowed { color: var(--green); }
+  .wl-blocked { color: var(--red); }
+  .wl-section ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9em;
+  }
+  .wl-section li {
+    padding: 4px 0;
+    color: var(--text-dim);
+  }
+
+  /* Principle list */
+  .principles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .principle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 0.9em;
+  }
+  .principle strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .principle span { color: var(--text-dim); }
+
+  /* Diagram */
+  .diagram-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 24px 0;
+    text-align: center;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.85em;
+    line-height: 2;
+    color: var(--text-dim);
+  }
+  .diagram-box .highlight { color: var(--accent); font-weight: 600; }
+  .diagram-box .arrow { color: var(--text-dim); margin: 0 4px; }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-dim);
+    font-size: 0.85em;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 20px 40px; }
+    .hero h1 { font-size: 2em; }
+    .container { padding: 0 16px; }
+    .card-grid, .role-grid, .principles { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Unified <span>Heartbeat</span></h1>
+  <p class="subtitle">你的跨项目自主执行循环——自动扫描所有项目、收集信息、思考决策、执行任务，每一步都有迹可循。</p>
+  <span class="badge">concordia-pmo-manager / skills / unified-heartbeat</span>
+</div>
+
+<div class="container">
+
+<!-- What is it -->
+<section>
+  <h2><span class="emoji">💡</span>这是什么</h2>
+  <p>Unified Heartbeat 是你的<strong>个人项目管理自动循环</strong>。它从<strong>你的视角</strong>出发，自动扫描你参与的所有 Concordia 项目，判断你作为 Owner 或 Member 应该做什么，然后在白名单允许的范围内替你执行一个任务。</p>
+  <p class="dim">它不是 Project Agent 的心跳（那是从项目管理者视角），也不是 Member Agent 的心跳（那是从成员视角）。它是唯一一个<strong>从你个人视角、跨所有项目</strong>运行的循环。</p>
+
+  <div class="diagram-box">
+    <span class="highlight">你的所有项目</span>
+    <span class="arrow">→</span>
+    扫描 7 个信源
+    <span class="arrow">→</span>
+    <span class="highlight">按角色决策</span>
+    <span class="arrow">→</span>
+    白名单门控
+    <span class="arrow">→</span>
+    <span class="highlight">执行 1 个任务</span>
+    <span class="arrow">→</span>
+    写日志
+  </div>
+</section>
+
+<!-- Four Roles -->
+<section>
+  <h2><span class="emoji">👥</span>四种角色</h2>
+  <p class="dim">系统中有且只有四种角色，从不混用"owner"这个歧义词：</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="icon">👤</span>
+      <h4>Project Owner</h4>
+      <p>项目的负责人（人类），拥有项目</p>
+    </div>
+    <div class="card">
+      <span class="icon">🤖</span>
+      <h4>Project Agent</h4>
+      <p>项目的 AI 代理（PMO Agent）</p>
+    </div>
+    <div class="card">
+      <span class="icon">👤</span>
+      <h4>Member</h4>
+      <p>项目成员（人类），做具体工作</p>
+    </div>
+    <div class="card">
+      <span class="icon">🤖</span>
+      <h4>Member Agent</h4>
+      <p>成员的 AI 代理</p>
+    </div>
+  </div>
+  <p class="dim">Unified Heartbeat 为<strong>你</strong>运行——你在某个项目中是 Owner 就走 Owner 分支，是 Member 就走 Member 分支。如果两者兼任，Owner 优先。</p>
+</section>
+
+<!-- Execution Flow -->
+<section>
+  <h2><span class="emoji">⚡</span>执行流程</h2>
+  <p class="dim">每次心跳对每个项目独立执行以下 7 步：</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num">0</div>
+      <div class="flow-content">
+        <h4>枚举项目</h4>
+        <p>列出你参与的所有活跃项目，判断你在每个项目中的角色（Owner / Member）</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <h4>读取上下文</h4>
+        <p>加载 PROJECT.md、你的 todos、最近 2 次心跳日志。首次运行时，Tier 1 信源回溯 2 周，Tier 2 SharePoint 回溯 6 个月</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <h4>扫描 7 个信源（子 Agent）</h4>
+        <p>每个信源一个独立子 Agent，各自有充裕的 token 空间。Tier 1 每次心跳跑，Tier 2 每天第一次跑</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <h4>按角色决策</h4>
+        <p>Owner 分支 → 管理者思维（分配、跟进、review）；Member 分支 → 执行者思维（理解任务、深度思考、产出交付物）</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <h4>执行 1 个任务（白名单门控）</h4>
+        <p>选出最高优先级的一个任务，白名单检查通过后，用专属子 Agent 深度执行</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <h4>写心跳日志</h4>
+        <p>完整记录扫描结果、思考过程、执行动作、collection proposals、待人类决策的事项</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num">6</div>
+      <div class="flow-content">
+        <h4>更新 Todos</h4>
+        <p>持久化你在这个项目中的任务清单——状态变更、新增项、交付物位置、备注</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 Sources -->
+<section>
+  <h2><span class="emoji">📡</span>7 个信源</h2>
+  <p>每个项目的信息扫描由<strong>独立子 Agent</strong> 执行——一个信源一个子 Agent，确保不会因为 token 不够而跳过。</p>
+
+  <table class="source-table">
+    <thead>
+      <tr><th>子 Agent</th><th>信源</th><th>频率</th><th>扫描内容</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>2a</strong></td>
+        <td>Project Channel</td>
+        <td><span class="tier-badge tier-1">每次</span></td>
+        <td>项目专属 Teams 频道的新消息</td>
+      </tr>
+      <tr>
+        <td><strong>2b</strong></td>
+        <td>Teams 聊天</td>
+        <td><span class="tier-badge tier-1">每次</span></td>
+        <td>1:1 和群聊中与项目相关的对话 + 外部 URL fetch</td>
+      </tr>
+      <tr>
+        <td><strong>2c</strong></td>
+        <td>日历</td>
+        <td><span class="tier-badge tier-1">每次</span></td>
+        <td>新增/变更的日历事件</td>
+      </tr>
+      <tr>
+        <td><strong>2d</strong></td>
+        <td>邮件</td>
+        <td><span class="tier-badge tier-1">每次</span></td>
+        <td>收发邮件中与项目相关的内容 + 外部 URL fetch</td>
+      </tr>
+      <tr>
+        <td><strong>2e</strong></td>
+        <td>会议纪要</td>
+        <td><span class="tier-badge tier-1">每次</span></td>
+        <td>会议 transcript / recap</td>
+      </tr>
+      <tr>
+        <td><strong>2f</strong></td>
+        <td>SharePoint 文档</td>
+        <td><span class="tier-badge tier-2">每天</span></td>
+        <td>项目 SP 站点中新增/修改的文档（动态关键词）</td>
+      </tr>
+      <tr>
+        <td><strong>2g</strong></td>
+        <td>公开网络</td>
+        <td><span class="tier-badge tier-2">每天</span></td>
+        <td>主动搜索竞品、行业、技术动态（动态关键词）</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="dim"><strong>动态关键词：</strong>2f 和 2g 的搜索关键词不是固定的——Agent 根据项目当前状态（PROJECT.md + todos + 近期日志）临时生成，确保搜索方向与项目最新需要一致。</p>
+</section>
+
+<!-- Role Branches -->
+<section>
+  <h2><span class="emoji">🔀</span>角色分支</h2>
+  <div class="role-grid">
+    <div class="role-card owner">
+      <h4>Branch O — Project Owner</h4>
+      <p class="dim" style="margin-bottom:12px">管理者思维：让整个项目往前走</p>
+      <ul>
+        <li>未分配的任务 → 决定方向、分配给 Member</li>
+        <li>进行中的任务 → 跟踪进度、识别风险</li>
+        <li>已提交的交付物 → 按验收标准 review</li>
+        <li>风险/阻塞 → 记录并上报</li>
+      </ul>
+    </div>
+    <div class="role-card member">
+      <h4>Branch M — Member</h4>
+      <p class="dim" style="margin-bottom:12px">执行者思维：深度理解和执行任务</p>
+      <ul>
+        <li>先扫描 Owner 最近动态获取上下文</li>
+        <li>按优先级选一个任务深度执行</li>
+        <li>遇到歧义 → 标记 blocked，不猜</li>
+        <li>产出交付物 + _submission.md</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- White-list -->
+<section>
+  <h2><span class="emoji">🛡️</span>白名单机制</h2>
+  <p>每个用户在每个项目中有一个 <code>white-list.&lt;user&gt;.md</code>，定义心跳可以自动做什么。</p>
+
+  <div class="wl-section">
+    <h4><span class="wl-allowed">✅</span> Category 1 — 自己的工作</h4>
+    <ul>
+      <li>所有文件读写操作（思考、笔记、中间产物）</li>
+      <li>更新 todo、写日志、记录 proposals</li>
+      <li><strong>唯一限制：不能写入 deliverables/ 文件夹</strong>（交付物需要人类审批）</li>
+    </ul>
+  </div>
+
+  <div class="wl-section">
+    <h4><span class="wl-blocked">🚫</span> Category 2 — 与他人沟通</h4>
+    <ul>
+      <li>✅ 可以：回复简单的事实状态查询（"项目进度如何？"→ 复述已有记录）</li>
+      <li>✅ 可以：轻量确认（"收到，我看下"）</li>
+      <li>🚫 不可以：承诺、决策、审批、表达观点</li>
+      <li>🚫 不可以：主动联系他人、分享未记录的信息</li>
+      <li>🚫 不可以：发任何需要用户先看一眼的内容</li>
+    </ul>
+  </div>
+
+  <p class="dim">拿不准的时候 → 不做，记到日志里等 Review 时人类决策。</p>
+</section>
+
+<!-- Project Repo Layout -->
+<section>
+  <h2><span class="emoji">📁</span>项目知识结构</h2>
+  <p class="dim">每个项目在 SharePoint 上的 Project Repo 布局：</p>
+  <div class="diagram-box" style="text-align:left; line-height:2.2">
+    <span class="highlight">Project repo/</span><br>
+    ├── <span class="highlight">state/</span><br>
+    │&nbsp;&nbsp;&nbsp;├── PROJECT.md &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">项目定义</span><br>
+    │&nbsp;&nbsp;&nbsp;├── todos.&lt;user&gt;.md &nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">个人 todo</span><br>
+    │&nbsp;&nbsp;&nbsp;├── white-list.&lt;user&gt;.md <span style="color:var(--text-dim)">白名单</span><br>
+    │&nbsp;&nbsp;&nbsp;└── planning/ <br>
+    ├── <span class="highlight">sources/</span><br>
+    │&nbsp;&nbsp;&nbsp;├── owner-global/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">内部讨论/会议/邮件</span><br>
+    │&nbsp;&nbsp;&nbsp;├── sharepoint/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">SP 文档</span><br>
+    │&nbsp;&nbsp;&nbsp;└── web/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">公开网络资源</span><br>
+    ├── <span class="highlight">deliverables/</span><br>
+    │&nbsp;&nbsp;&nbsp;└── &lt;task-id&gt;/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">交付物 + _submission.md</span><br>
+    ├── <span class="highlight">learnings/</span><br>
+    └── <span class="highlight">logs/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;├── heartbeats/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">uh-YYYY-MM-DD_HH-MM.md</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;├── reviews/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:var(--text-dim)">人类 review 记录</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;└── decisions/
+  </div>
+</section>
+
+<!-- Design Principles -->
+<section>
+  <h2><span class="emoji">🧭</span>设计原则</h2>
+  <div class="principles">
+    <div class="principle">
+      <strong>一人一循环，跨所有项目</strong>
+      <span>从你的视角扫描所有项目，Owner 和 Member 角色用不同分支处理</span>
+    </div>
+    <div class="principle">
+      <strong>每项目每拍一个任务</strong>
+      <span>深度优于广度——用专属子 Agent 给足 token 做高质量执行</span>
+    </div>
+    <div class="principle">
+      <strong>心跳期间不打扰人</strong>
+      <span>所有需要人类决策的事记到日志，由 Review Skill 统一呈现</span>
+    </div>
+    <div class="principle">
+      <strong>提案不自动归档</strong>
+      <span>收集到的素材只做 proposal，进 sources/ 需要人类审批（隐私+相关性门控）</span>
+    </div>
+    <div class="principle">
+      <strong>白名单兜底</strong>
+      <span>只有白名单明确允许的操作才自动执行，拿不准就不做</span>
+    </div>
+    <div class="principle">
+      <strong>先想再做</strong>
+      <span>执行前深度思考目的、验收标准、风险；遇到歧义标记 blocked 而不是猜</span>
+    </div>
+    <div class="principle">
+      <strong>日志自去重</strong>
+      <span>读上次日志避免重复提案和重复执行</span>
+    </div>
+    <div class="principle">
+      <strong>完整可追溯</strong>
+      <span>每次心跳一份日志、每个交付物一份 submission，全链路可回溯</span>
+    </div>
+  </div>
+</section>
+
+<!-- Companion: Review -->
+<section>
+  <h2><span class="emoji">🔗</span>配套 Skill: Unified Review</h2>
+  <p>Unified Heartbeat 产出日志和 proposals → <strong>Unified Review</strong> 把它们变成和你的自然对话：</p>
+  <div class="card-grid">
+    <div class="card">
+      <span class="icon">💬</span>
+      <h4>一次一个决策</h4>
+      <p>带建议、原因、风险，等你回复再给下一个</p>
+    </div>
+    <div class="card">
+      <span class="icon">⚡</span>
+      <h4>确认即执行</h4>
+      <p>你说"收"就写入 sources，说"都收"就批量处理</p>
+    </div>
+    <div class="card">
+      <span class="icon">📋</span>
+      <h4>Review Log</h4>
+      <p>记录每个决策和执行结果，形成 heartbeat ↔ review 闭环</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  Unified Heartbeat &middot; concordia-pmo-manager &middot; 2026
+</footer>
+
+</body>
+</html>
