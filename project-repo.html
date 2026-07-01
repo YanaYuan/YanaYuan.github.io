@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Repo — 项目知识空间结构介绍</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #242836;
+    --border: #2e3345;
+    --text: #e4e6ed;
+    --text-dim: #8b8fa3;
+    --accent: #6c8aff;
+    --accent2: #a78bfa;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --cyan: #22d3ee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+  .hero { background: linear-gradient(135deg, #1a1040 0%, #0f1117 50%, #0a1628 100%); padding: 72px 40px 56px; text-align: center; border-bottom: 1px solid var(--border); }
+  .hero h1 { font-size: 2.6em; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .hero h1 span { color: var(--accent); }
+  .hero .subtitle { font-size: 1.1em; color: var(--text-dim); max-width: 720px; margin: 0 auto; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 48px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+
+  h2 { font-size: 1.5em; font-weight: 600; margin-bottom: 20px; letter-spacing: -0.02em; }
+  h2 i { margin-right: 10px; color: var(--accent); font-size: 0.85em; }
+  h3 { font-size: 1.1em; font-weight: 600; margin: 24px 0 8px; color: var(--accent2); }
+  p { margin-bottom: 14px; }
+  p.dim { color: var(--text-dim); font-size: 0.93em; }
+  p.intro { font-size: 1.02em; margin-bottom: 20px; }
+
+  .folder-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 16px 0; }
+  .folder-section h3 { margin-top: 0; }
+
+  .file-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin: 10px 0; }
+  .file-item .name { font-weight: 600; font-size: 0.95em; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .file-item .name i { color: var(--text-dim); font-size: 0.85em; }
+  .file-item .desc { font-size: 0.88em; color: var(--text-dim); }
+
+  .subfolder { margin-left: 20px; border-left: 2px solid var(--border); padding-left: 16px; margin-top: 10px; }
+
+  .status-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.75em; font-weight: 600; margin-left: 8px; }
+  .badge-green { background: rgba(52,211,153,0.15); color: var(--green); }
+  .badge-amber { background: rgba(251,191,36,0.15); color: var(--amber); }
+  .badge-blue { background: rgba(108,138,255,0.15); color: var(--accent); }
+
+  .overview-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin: 24px 0; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85em; line-height: 2; color: var(--text-dim); white-space: pre; overflow-x: auto; }
+  .overview-box .hl { color: var(--accent); font-weight: 600; }
+  .overview-box .hl2 { color: var(--accent2); font-weight: 600; }
+  .overview-box .grn { color: var(--green); }
+
+  footer { text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.85em; border-top: 1px solid var(--border); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 48px 20px 40px; }
+    .hero h1 { font-size: 2em; }
+    .container { padding: 0 16px; }
+    .subfolder { margin-left: 12px; padding-left: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Project <span>Repo</span></h1>
+  <p class="subtitle">每个 Concordia 项目的知识空间结构——信息怎么进来、怎么流转、怎么变成团队共识。</p>
+</div>
+
+<div class="container">
+
+<!-- Overview -->
+<section>
+  <h2><i class="fas fa-sitemap"></i>整体结构</h2>
+  <p class="intro">Project Repo 是一个项目的所有知识和状态的存放地。它不是一个被动的文件夹，而是一个有明确流转逻辑的系统：信息从外部进入 sources，经过 AI 加工和人类审批，变成项目的共享认知（state/cognition），最终产出交付物（deliverables）。</p>
+
+  <div class="overview-box"><span class="hl">Project repo/</span>
+├── <span class="hl2">state/</span>              项目的大脑——认知状态、信号指令、成员立场
+├── <span class="hl2">sources/</span>            进入项目的原始素材（经人工审批后才入库）
+├── <span class="hl2">drafts/</span>             AI 自动产出的草稿（等人审批后才变成正式交付物）
+├── <span class="hl2">deliverables/</span>       正式交付物（人工审批后从 drafts 搬入）
+├── <span class="hl2">logs/</span>               所有自动化行为的日志记录
+└── <span class="hl2">learnings/</span>          项目中积累的经验教训</div>
+</section>
+
+<!-- State -->
+<section>
+  <h2><i class="fas fa-brain"></i>state/ — 项目的大脑</h2>
+  <p class="intro">这是整个系统最核心的部分。它记录了：项目是什么（PROJECT.md）、该关注什么（signal-mandate）、项目的共享认知状态（cognition/）、以及等待 DRI 决策的问题（pending-review/）。</p>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-file-lines"></i> PROJECT.md</div>
+    <div class="desc">项目定义文档。包含项目目标、交付物、成功标准、deadline、团队成员。是整个项目的"宪法"。</div>
+  </div>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-file-lines"></i> signal-mandate.md</div>
+    <div class="desc">信号指令——DRI 和 AI 对话后产出的文档，定义了这个项目该关注什么方向、扫描哪些信源、什么算高价值信号、什么情况需要立刻通知 DRI。是 AI 自动扫描的"行动纲领"。</div>
+  </div>
+
+  <!-- Cognition subfolder -->
+  <div class="folder-section">
+    <h3><i class="fas fa-folder-open"></i> cognition/ — 认知状态子系统</h3>
+    <p class="dim">这是 Dawei "Project Alignment Graph" 的文件化表达——追踪项目的共享认知、每个成员的理解状态、以及两者之间的差距。</p>
+
+    <div class="file-item">
+      <div class="name"><i class="fas fa-file-lines"></i> shared-state.md <span class="status-badge badge-green">项目真相</span></div>
+      <div class="desc">共享项目状态——当前所有经 DRI 确认的认知对象索引。相当于"项目现在认为是真的东西"。当前有 3 个 accepted + 1 个 monitoring。</div>
+    </div>
+
+    <div class="subfolder">
+      <div class="file-item">
+        <div class="name"><i class="fas fa-folder"></i> objects/ <span class="status-badge badge-blue">认知对象</span></div>
+        <div class="desc">每个认知对象独立一个文件（goal、decision、risk、assumption 等）。每个对象有状态：<b>candidate</b>（AI 推断，未确认）→ <b>accepted</b>（DRI 确认）→ 或 <b>rejected</b> / <b>monitoring</b>。当前有 4 个对象：项目定位、三层架构、信息架构、技术路线。</div>
+      </div>
+    </div>
+
+    <div class="subfolder">
+      <div class="file-item">
+        <div class="name"><i class="fas fa-folder"></i> signals/</div>
+        <div class="desc">信号流转区。</div>
+      </div>
+      <div class="subfolder">
+        <div class="file-item">
+          <div class="name"><i class="fas fa-file-lines"></i> candidates.md <span class="status-badge badge-amber">待审</span></div>
+          <div class="desc">候选信号列表——AI 扫描发现的、可能影响项目认知的信号。每条包含来源、内容摘要、AI 的推断、优先级。等 DRI 在 Truth Gate 中判断后，accepted 的移到 admitted/，rejected 的标记移除。当前 5 条。</div>
+        </div>
+        <div class="file-item">
+          <div class="name"><i class="fas fa-folder"></i> admitted/</div>
+          <div class="desc">已准入的信号——经 DRI 确认后，成为认知对象的支撑证据存放于此。当前为空（首轮信号直接提升为 objects，未走 admitted 中转）。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subfolder">
+      <div class="file-item">
+        <div class="name"><i class="fas fa-folder"></i> stances/ <span class="status-badge badge-amber">成员立场</span></div>
+        <div class="desc">每个团队成员一个文件，记录 AI 推断的（或经本人确认的）认知立场——他们目前对项目方向的理解是什么、有没有分歧。状态为 <b>inferred</b>（AI 推断）→ <b>aligned</b>（本人确认一致）/ <b>misaligned</b>（确认有分歧）。</div>
+      </div>
+      <div class="subfolder">
+        <div class="file-item">
+          <div class="name"><i class="fas fa-file-lines"></i> stance.yinyuan.md <span class="status-badge badge-green">aligned</span></div>
+          <div class="desc">DRI 本人，通过对话确认。</div>
+        </div>
+        <div class="file-item">
+          <div class="name"><i class="fas fa-file-lines"></i> stance.yuecongyang.md <span class="status-badge badge-amber">inferred</span></div>
+          <div class="desc">AI 推断他可能不了解最新方向。已发私聊校准问题，等待回复。</div>
+        </div>
+        <div class="file-item">
+          <div class="name"><i class="fas fa-file-lines"></i> stance.mingyugu.md <span class="status-badge badge-blue">partially grounded</span></div>
+          <div class="desc">角色已由 DRI 确认为"深度参与"。认知立场未经本人确认。</div>
+        </div>
+        <div class="file-item">
+          <div class="name"><i class="fas fa-file-lines"></i> stance.jianliu3.md <span class="status-badge badge-amber">inferred</span></div>
+          <div class="desc">AI 推断他可能还把项目理解为"文件夹优化"。低优先级，下次互动时确认。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="file-item">
+      <div class="name"><i class="fas fa-file-lines"></i> gaps.md <span class="status-badge badge-green">护城河</span></div>
+      <div class="desc">认知差距图——自动对比 shared-state 和每个 stance，列出谁的理解和项目真相不一致。这是 Concordia 最有防御性的层——平台能做摘要，但"知道谁认知落后"是独有能力。当前 1 个 active gap、1 个 low priority、1 个 resolved。</div>
+    </div>
+  </div>
+
+  <!-- Pending review -->
+  <div class="folder-section">
+    <h3><i class="fas fa-folder-open"></i> pending-review/ — 等待 DRI 决策</h3>
+    <p class="dim">AI 准备好的校准问题放在这里，等 DRI 来 review 时逐条回答。</p>
+
+    <div class="file-item">
+      <div class="name"><i class="fas fa-file-lines"></i> queue.md</div>
+      <div class="desc">校准问题队列——结合项目全貌（shared-state + objects + signals + stances + gaps）生成的、给 DRI 回答的具体问题。每个问题都是"AI 的判断 + 建议 + 等你确认"的格式。当前 7 个问题已全部处理完。</div>
+    </div>
+  </div>
+</section>
+
+<!-- Sources -->
+<section>
+  <h2><i class="fas fa-database"></i>sources/ — 项目的输入素材</h2>
+  <p class="intro">所有进入项目的参考资料都在这里。重要规则：<b>素材不会自动入库</b>——AI 扫描发现后只做提案，人工审批后才写入 sources/。这是隐私和相关性的门控。</p>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-folder"></i> owner-global/</div>
+    <div class="desc">来自内部沟通的素材——会议纪要、Teams 讨论、邮件中的关键内容。当前有 3 份邮件摘要（Dawei 认知设计、PMO skill 更新、Workspace 系统设计）。</div>
+  </div>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-folder"></i> sharepoint/</div>
+    <div class="desc">来自 SharePoint 文档库的素材——相关的设计文档、PRD、技术规范等。当前为空。</div>
+  </div>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-folder"></i> web/</div>
+    <div class="desc">来自公开网络的素材——竞品分析、技术论文、行业新闻。当前有 2 份 web 研究（DRI 认知契约、人机团队对齐）。</div>
+  </div>
+</section>
+
+<!-- Drafts -->
+<section>
+  <h2><i class="fas fa-pencil-alt"></i>drafts/ — AI 的草稿区</h2>
+  <p class="intro">AI 心跳自动产出的工作草稿暂存在这里。按成员分子文件夹。草稿不是正式交付物——需要人 review 批准后才搬到 deliverables/。这解决了一个问题：AI 不用等人来了才开始工作，它先做完存草稿，人只需要审批成品。</p>
+  <p class="dim">当前为空——项目刚建，尚未有心跳产出草稿。</p>
+</section>
+
+<!-- Deliverables -->
+<section>
+  <h2><i class="fas fa-box-open"></i>deliverables/ — 正式交付物</h2>
+  <p class="intro">经人工审批后的正式产出物。每个任务一个子文件夹，包含交付文件 + 一个 _submission.md 记录谁提交的、什么时候、摘要和修订历史。</p>
+  <p class="dim">当前为空——项目刚建。</p>
+</section>
+
+<!-- Logs -->
+<section>
+  <h2><i class="fas fa-scroll"></i>logs/ — 自动化日志</h2>
+  <p class="intro">所有自动运行的记录。如果出了问题，来这里看发生了什么。</p>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-folder"></i> heartbeats/</div>
+    <div class="desc">心跳日志——AI 每小时自动扫描一次，记录发现了什么、思考了什么、做了什么。当前有 16 条 Project Agent 心跳记录（6/30 全天）。</div>
+  </div>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-folder"></i> reviews/</div>
+    <div class="desc">Review 日志——每次人工 review 的决策记录（哪个问题、怎么判断、执行了什么操作）。当前 1 份（7/1 review）。</div>
+  </div>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-folder"></i> decisions/</div>
+    <div class="desc">重大决策日志。当前为空。</div>
+  </div>
+
+  <div class="file-item">
+    <div class="name"><i class="fas fa-folder"></i> knowledge-fit/</div>
+    <div class="desc">知识健康度检查日志——AI 定期体检知识库的完整性、一致性、新鲜度。</div>
+  </div>
+</section>
+
+<!-- Learnings -->
+<section>
+  <h2><i class="fas fa-lightbulb"></i>learnings/ — 经验教训</h2>
+  <p class="intro">项目执行过程中积累的经验和教训，分为执行类（怎么做事）和发现类（发现了什么）。用卡片形式记录，按时间索引。</p>
+  <p class="dim">当前为空模板——项目刚建。</p>
+</section>
+
+<!-- How it flows -->
+<section>
+  <h2><i class="fas fa-arrows-spin"></i>信息怎么流转</h2>
+  <p class="intro">整个系统的信息流是这样的：</p>
+  <div class="overview-box"><span class="grn">外部信号</span>（邮件/Teams/会议/Web）
+    ↓  AI 按 signal-mandate 扫描
+<span class="hl2">signals/candidates.md</span>（候选信号，AI 推断了影响）
+    ↓  DRI 在 Truth Gate 中判断
+<span class="hl">cognition/objects/</span>（accepted = 项目真相更新）
+<span class="hl">cognition/shared-state.md</span>（索引更新）
+    ↓  自动对比 shared-state vs stances
+<span class="hl2">cognition/gaps.md</span>（谁的理解落后了？）
+    ↓  Loop 2: 问成员确认
+<span class="grn">stances/ 更新</span>（aligned / misaligned / unknown）</div>
+
+  <div class="overview-box"><span class="grn">AI 心跳</span>发现需要做的事
+    ↓  白名单允许？
+<span class="hl2">drafts/</span>（先存草稿）
+    ↓  人 review 批准
+<span class="hl">deliverables/</span>（正式交付物）</div>
+</section>
+
+</div>
+
+<footer>
+  Concordia Project Repo &middot; 项目认知对齐系统 &middot; 2026
+</footer>
+
+</body>
+</html>
