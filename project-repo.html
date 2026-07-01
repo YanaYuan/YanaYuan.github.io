@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -97,71 +97,106 @@
   <h2><i class="fas fa-brain"></i>state/ — 项目的大脑</h2>
   <p class="intro">这是整个系统最核心的部分。它记录了：项目是什么（PROJECT.md）、该关注什么（signal-mandate.md）、项目的共享认知状态（cognition/）、以及等待 DRI 决策的问题（pending-review/）。</p>
 
+  <style>
+    .tree { list-style: none; padding-left: 0; font-size: 0.9em; }
+    .tree ul { list-style: none; padding-left: 28px; border-left: 1px solid var(--border); margin: 4px 0 4px 11px; }
+    .tree li { padding: 8px 0; }
+    .tree .node { display: flex; align-items: flex-start; gap: 10px; }
+    .tree .node-name-primary { font-weight: 600; color: var(--accent2); white-space: nowrap; }
+    .tree .node-name-secondary { font-weight: 600; color: var(--text-dim); white-space: nowrap; }
+    .tree .node-desc { color: var(--text-dim); font-size: 0.92em; line-height: 1.5; }
+    .tree .node i.primary { color: var(--accent2); font-size: 0.85em; min-width: 18px; text-align: center; margin-top: 3px; }
+    .tree .node i.secondary { color: #555; font-size: 0.85em; min-width: 18px; text-align: center; margin-top: 3px; }
+    .tree .tag { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 0.75em; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+    .tree .tag-green { background: rgba(52,211,153,0.15); color: var(--green); }
+    .tree .tag-amber { background: rgba(251,191,36,0.15); color: var(--amber); }
+    .tree .tag-red { background: rgba(248,113,113,0.15); color: var(--red); }
+    .tree .moat { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); border-radius: 8px; padding: 8px 12px; margin: -8px -12px; }
+  </style>
+
   <div class="folder-section">
-    <div class="file-item">
-      <div class="name"><i class="fas fa-file-lines"></i> PROJECT.md</div>
-      <div class="desc">项目定义文档。包含目标、交付物、成功标准、deadline、团队。是整个项目的"宪法"。</div>
-    </div>
-
-    <div class="file-item">
-      <div class="name"><i class="fas fa-file-lines"></i> signal-mandate.md</div>
-      <div class="desc">信号指令——DRI 和 AI 对话后定义的"项目该关注什么"。包括：关注哪些方向、扫哪些信源、什么算高价值、什么是噪音、什么情况需要立刻通知 DRI。是 AI 自动扫描的行动纲领。</div>
-    </div>
-
-    <div class="folder-section" style="margin-top: 20px;">
-      <h3 style="margin-top:0"><i class="fas fa-folder-open"></i> cognition/ — 认知状态子系统</h3>
-      <p class="dim" style="margin-bottom:16px">Project Alignment Graph 的文件化表达——追踪项目的共享认知、每个成员的理解状态、以及两者的差距。</p>
-
-      <div class="file-item">
-        <div class="name"><i class="fas fa-file-lines"></i> shared-state.md <span class="status-badge badge-green">项目真相</span></div>
-        <div class="desc">经 DRI 确认的项目真相。列出所有 accepted 的认知对象和状态。相当于"项目现在认为是真的东西"。</div>
-      </div>
-
-      <div class="file-item">
-        <div class="name"><i class="fas fa-folder"></i> objects/ <span class="status-badge badge-blue">结论</span></div>
-        <div class="desc">认知对象——项目认为是真的事（目标、决策、风险、假设等）。每个对象独立一个文件，由一个或多个 signal 支撑，经 DRI 确认后才成立。<br>状态流转：<code>candidate</code> → <code>accepted</code> / <code>rejected</code> / <code>monitoring</code></div>
-      </div>
-
-      <div class="file-item">
-        <div class="name"><i class="fas fa-folder"></i> signals/ <span class="status-badge badge-amber">证据</span></div>
-        <div class="desc">信号——外部发生的事（邮件、会议、论文、Teams 消息）。它本身不是项目真相，只是可能影响真相的证据。<b>Signal 是证据，Object 是结论。</b></div>
-      </div>
-
-      <div class="subfolder">
-        <div class="file-item">
-          <div class="name"><i class="fas fa-file-lines"></i> candidates.md</div>
-          <div class="desc">候选信号——AI 扫描发现的、还没被 DRI 判断的信号。每条含来源、内容、AI 推断的影响、优先级。</div>
+    <ul class="tree">
+      <li>
+        <div class="node">
+          <i class="fas fa-file-lines primary"></i>
+          <div><span class="node-name-primary">PROJECT.md</span><br><span class="node-desc">项目定义。目标、交付物、成功标准、deadline、团队。项目的"宪法"。</span></div>
         </div>
-        <div class="file-item">
-          <div class="name"><i class="fas fa-folder"></i> admitted/</div>
-          <div class="desc">已准入信号——DRI 确认后从 candidates 移入，成为认知对象的支撑证据。</div>
+      </li>
+      <li>
+        <div class="node">
+          <i class="fas fa-file-lines primary"></i>
+          <div><span class="node-name-primary">signal-mandate.md</span><br><span class="node-desc">信号指令——DRI 定义的"项目该关注什么"。关注方向、信源范围、价值标准、升级阈值、隐私边界。AI 自动扫描的行动纲领。</span></div>
         </div>
-      </div>
-
-      <div class="file-item">
-        <div class="name"><i class="fas fa-folder"></i> stances/ <span class="status-badge badge-amber">成员立场</span></div>
-        <div class="desc">每个团队成员一个文件，记录 AI 推断的（或经本人确认的）对项目方向的理解。<br>状态流转：<code>inferred</code>（AI 推断）→ <code>aligned</code>（确认一致）/ <code>misaligned</code>（确认有分歧）</div>
-      </div>
-
-      <div class="file-item">
-        <div class="name"><i class="fas fa-file-lines"></i> gaps.md <span class="status-badge badge-green">护城河</span></div>
-        <div class="desc">认知差距图——自动对比 shared-state 和每个 stance，列出谁的理解和项目真相不一致。这是 Concordia 最有防御性的层——平台能做摘要，但"知道谁认知落后"是独有能力。</div>
-      </div>
-    </div>
-
-    <div class="folder-section" style="margin-top: 20px;">
-      <h3 style="margin-top:0"><i class="fas fa-folder-open"></i> pending-review/ — 等待 DRI 决策</h3>
-
-      <div class="file-item">
-        <div class="name"><i class="fas fa-file-lines"></i> queue.md</div>
-        <div class="desc">校准问题队列——AI 结合项目全貌生成的、给 DRI 回答的具体问题。每个问题都是"AI 的判断 + 建议 + 等你确认"的格式。DRI 打开驾驶舱看到的就是这个。</div>
-      </div>
-    </div>
+      </li>
+      <li>
+        <div class="node">
+          <i class="fas fa-folder-open primary"></i>
+          <div><span class="node-name-primary">cognition/</span><br><span class="node-desc">认知状态子系统——Project Alignment Graph 的文件化表达。追踪项目的共享认知、成员理解、以及两者的差距。</span></div>
+        </div>
+        <ul>
+          <li>
+            <div class="node">
+              <i class="fas fa-file-lines secondary"></i>
+              <div><span class="node-name-secondary">shared-state.md</span><span class="tag tag-green">项目共识</span><br><span class="node-desc">经 DRI 确认的项目真相。列出所有 accepted 的认知对象。"项目现在认为是真的东西。"</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="node">
+              <i class="fas fa-folder secondary"></i>
+              <div><span class="node-name-secondary">objects/</span><br><span class="node-desc">认知对象——项目认为是真的事（目标、决策、风险、假设）。每个对象由 signal 支撑，经 DRI 确认后才成立。状态：candidate → accepted / rejected / monitoring</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="node">
+              <i class="fas fa-folder secondary"></i>
+              <div><span class="node-name-secondary">signals/</span><br><span class="node-desc">信号——外部发生的事（邮件、会议、论文）。不是项目真相，是可能影响真相的证据。<b>Signal 是证据，Object 是结论。</b></span></div>
+            </div>
+            <ul>
+              <li>
+                <div class="node">
+                  <i class="fas fa-file-lines secondary"></i>
+                  <div><span class="node-name-secondary">candidates.md</span><br><span class="node-desc">候选信号——AI 发现的、还没被 DRI 判断的。含来源、内容、AI 推断、优先级。</span></div>
+                </div>
+              </li>
+              <li>
+                <div class="node">
+                  <i class="fas fa-folder secondary"></i>
+                  <div><span class="node-name-secondary">admitted/</span><br><span class="node-desc">已准入信号——DRI 确认后从 candidates 移入，成为认知对象的支撑证据。</span></div>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div class="node">
+              <i class="fas fa-folder secondary"></i>
+              <div><span class="node-name-secondary">stances/</span><span class="tag tag-amber">成员立场</span><br><span class="node-desc">每人一个文件。AI 推断或本人确认的对项目方向的理解。状态：inferred → aligned / misaligned</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="node moat">
+              <i class="fas fa-file-lines secondary"></i>
+              <div><span class="node-name-secondary">gaps.md</span><span class="tag tag-red">认知差距</span><br><span class="node-desc">自动对比 shared-state 和每个 stance，列出谁的理解和项目真相不一致。<b>这是 Concordia 最有防御性的层。</b>平台能做摘要，但"知道谁认知落后"是独有能力。</span></div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <div class="node">
+          <i class="fas fa-folder-open primary"></i>
+          <div><span class="node-name-primary">pending-review/</span><br><span class="node-desc">等待 DRI 决策的校准问题。AI 结合项目全貌生成，"AI 的判断 + 建议 + 等你确认"。</span></div>
+        </div>
+        <ul>
+          <li>
+            <div class="node">
+              <i class="fas fa-file-lines secondary"></i>
+              <div><span class="node-name-secondary">queue.md</span><br><span class="node-desc">校准问题队列——DRI 打开驾驶舱看到的就是这个。</span></div>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
-
-
 </section>
-
 <!-- Sources -->
 <section>
   <h2><i class="fas fa-database"></i>sources/ — 项目的输入素材</h2>
@@ -233,23 +268,66 @@
 <!-- How it flows -->
 <section>
   <h2><i class="fas fa-arrows-spin"></i>信息怎么流转</h2>
-  <p class="intro">整个系统的信息流是这样的：</p>
-  <div class="overview-box"><span class="grn">外部信号</span>（邮件/Teams/会议/Web）
-    ↓  AI 按 signal-mandate 扫描
-<span class="hl2">signals/candidates.md</span>（候选信号，AI 推断了影响）
-    ↓  DRI 在 Truth Gate 中判断
-<span class="hl">cognition/objects/</span>（accepted = 项目真相更新）
-<span class="hl">cognition/shared-state.md</span>（索引更新）
-    ↓  自动对比 shared-state vs stances
-<span class="hl2">cognition/gaps.md</span>（谁的理解落后了？）
-    ↓  Loop 2: 问成员确认
-<span class="grn">stances/ 更新</span>（aligned / misaligned / unknown）</div>
+  <p class="intro">整个系统通过三个循环运转：</p>
 
-  <div class="overview-box"><span class="grn">AI 心跳</span>发现需要做的事
-    ↓  白名单允许？
-<span class="hl2">drafts/</span>（先存草稿）
-    ↓  人 review 批准
-<span class="hl">deliverables/</span>（正式交付物）</div>
+  <style>
+    .flow-diagram { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin: 24px 0; font-size: 0.9em; line-height: 1.8; text-align: left; }
+    .flow-step { margin: 8px 0; }
+    .flow-arrow { color: var(--text-dim); margin: 4px 0; font-size: 1.2em; }
+    .flow-loop-label { display: inline-block; padding: 3px 12px; border-radius: 14px; font-size: 0.8em; font-weight: 700; margin-bottom: 8px; background: rgba(108,138,255,0.15); color: var(--accent); }
+    .flow-file { color: var(--accent2); font-weight: 600; }
+    .flow-desc { color: var(--text-dim); }
+    .flow-separator { border: none; border-top: 1px dashed var(--border); margin: 20px 0; }
+  </style>
+
+  <div class="flow-diagram">
+    <span class="flow-loop-label">Loop 0 — Signal Mandate</span>
+    <div class="flow-step">
+      <div>
+        <span style="color:var(--green); font-weight:600;">外部信号</span> <span class="flow-desc">（邮件 / Teams / 会议 / Web）</span>
+      </div>
+    </div>
+    <div class="flow-arrow">↓ <span class="flow-desc" style="font-size:0.8em;">AI 按 <span class="flow-file">signal-mandate.md</span> 定义的方向和标准扫描</span></div>
+
+    <div class="flow-step">
+      <div>
+        <span class="flow-file">signals/candidates.md</span> <span class="flow-desc">— 候选信号 + AI 推断的影响</span>
+      </div>
+    </div>
+
+    <hr class="flow-separator">
+
+    <span class="flow-loop-label">Loop 1 — Truth Gate</span>
+    <div class="flow-arrow">↓ <span class="flow-desc" style="font-size:0.8em;">DRI 逐条判断：这个信号是否改变项目真相？</span></div>
+
+    <div class="flow-step">
+      <div>
+        <span class="flow-file">cognition/objects/</span> <span class="flow-desc">— accepted = 项目真相更新</span><br>
+        <span class="flow-file">cognition/shared-state.md</span> <span class="flow-desc">— 项目共识更新</span>
+      </div>
+    </div>
+
+    <hr class="flow-separator">
+
+    <div class="flow-arrow">↓ <span class="flow-desc" style="font-size:0.8em;">自动对比 shared-state vs 每个成员的 stance</span></div>
+
+    <div class="flow-step">
+      <div>
+        <span class="flow-file">cognition/gaps.md</span> <span class="flow-desc">— 谁的理解落后了？</span>
+      </div>
+    </div>
+
+    <hr class="flow-separator">
+
+    <span class="flow-loop-label">Loop 2 — Member Alignment</span>
+    <div class="flow-arrow">↓ <span class="flow-desc" style="font-size:0.8em;">问成员确认："这是你目前的理解吗？"</span></div>
+
+    <div class="flow-step">
+      <div>
+        <span class="flow-file">stances/</span> <span class="flow-desc">更新（aligned / misaligned / unknown）</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 </div>
