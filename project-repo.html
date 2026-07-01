@@ -95,111 +95,64 @@
 <!-- State -->
 <section>
   <h2><i class="fas fa-brain"></i>state/ — 项目的大脑</h2>
-  <p class="intro">这是整个系统最核心的部分。它记录了：项目是什么（PROJECT.md）、该关注什么（signal-mandate）、项目的共享认知状态（cognition/）、以及等待 DRI 决策的问题（pending-review/）。</p>
+  <p class="intro">这是整个系统最核心的部分。它记录了：项目是什么、该关注什么、项目的共享认知状态、以及等待 DRI 决策的问题。</p>
 
   <div class="overview-box"><span class="hl">state/</span>
-├── <span class="hl2">PROJECT.md</span>                 项目定义（目标、交付物、团队）
-├── <span class="hl2">signal-mandate.md</span>          信号指令（关注什么、从哪扫、怎么判断）
-├── <span class="hl2">cognition/</span>                 认知状态子系统
-│   ├── shared-state.md          经 DRI 确认的项目真相
-│   ├── objects/                  认知对象（goal/decision/risk/assumption）
-│   ├── signals/
-│   │   ├── candidates.md         候选信号（待 DRI 判断）
-│   │   └── admitted/             已准入信号（支撑证据）
-│   ├── stances/                  成员认知立场（逐人）
-│   │   ├── stance.yinyuan.md
-│   │   ├── stance.yuecongyang.md
-│   │   ├── stance.mingyugu.md
-│   │   └── stance.jianliu3.md
-│   └── gaps.md                   认知差距图（护城河）
-└── <span class="hl2">pending-review/</span>            等待 DRI 决策的校准问题
-    └── queue.md</div>
+│
+├── <span class="hl2">PROJECT.md</span>
+│   项目定义文档。包含目标、交付物、成功标准、deadline、团队。
+│   是整个项目的"宪法"。
+│
+├── <span class="hl2">signal-mandate.md</span>
+│   信号指令——DRI 和 AI 对话后定义的"项目该关注什么"。
+│   包括：关注哪些方向、扫哪些信源、什么算高价值、什么是噪音、
+│   什么情况需要立刻通知 DRI。是 AI 自动扫描的行动纲领。
+│
+├── <span class="hl2">cognition/</span> ─── 认知状态子系统（Project Alignment Graph 的文件化表达）
+│   │
+│   ├── <span class="hl2">shared-state.md</span>
+│   │   经 DRI 确认的项目真相。列出当前所有 accepted 的认知对象
+│   │   和它们的状态。相当于"项目现在认为是真的东西"。
+│   │
+│   ├── <span class="hl2">objects/</span>
+│   │   认知对象——项目认为是真的事（目标、决策、风险、假设等）。
+│   │   每个对象独立一个文件，由一个或多个 signal 支撑，经 DRI
+│   │   确认后才成立。
+│   │   状态流转：candidate → accepted / rejected / monitoring
+│   │
+│   ├── <span class="hl2">signals/</span>
+│   │   │  信号——外部发生的事（邮件、会议、论文、Teams 消息）。
+│   │   │  它本身不是项目真相，只是可能影响真相的证据。
+│   │   │  <span class="grn">Signal 是证据，Object 是结论。</span>
+│   │   │
+│   │   ├── <span class="hl2">candidates.md</span>
+│   │   │   候选信号——AI 扫描发现的、还没被 DRI 判断的信号。
+│   │   │   每条含：来源、内容、AI 推断的影响、优先级。
+│   │   │
+│   │   └── <span class="hl2">admitted/</span>
+│   │       已准入信号——DRI 确认后从 candidates 移入，
+│   │       成为认知对象的支撑证据。
+│   │
+│   ├── <span class="hl2">stances/</span>
+│   │   成员认知立场——每人一个文件，记录 AI 推断的（或经本人确认的）
+│   │   对项目方向的理解。
+│   │   状态流转：inferred（AI 推断）→ aligned（确认一致）
+│   │                                  → misaligned（确认有分歧）
+│   │
+│   └── <span class="hl2">gaps.md</span>
+│       认知差距图——自动对比 shared-state 和每个 stance，
+│       列出谁的理解和项目真相不一致。
+│       <span class="grn">这是 Concordia 最有防御性的层。</span>
+│       平台能做摘要，但"知道谁认知落后"是独有能力。
+│
+└── <span class="hl2">pending-review/</span>
+    │  等待 DRI 决策的校准问题。AI 结合项目全貌生成，
+    │  每个问题都是"AI 的判断 + 建议 + 等你确认"的格式。
+    │
+    └── <span class="hl2">queue.md</span>
+        校准问题队列——DRI 打开驾驶舱看到的就是这个。</div>
 
-  <div class="file-item">
-    <div class="name"><i class="fas fa-file-lines"></i> PROJECT.md</div>
-    <div class="desc">项目定义文档。包含项目目标、交付物、成功标准、deadline、团队成员。是整个项目的"宪法"。</div>
-  </div>
 
-  <div class="file-item">
-    <div class="name"><i class="fas fa-file-lines"></i> signal-mandate.md</div>
-    <div class="desc">信号指令——DRI 和 AI 对话后产出的文档，定义了这个项目该关注什么方向、扫描哪些信源、什么算高价值信号、什么情况需要立刻通知 DRI。是 AI 自动扫描的"行动纲领"。</div>
-  </div>
-
-  <!-- Cognition subfolder -->
-  <div class="folder-section">
-    <h3><i class="fas fa-folder-open"></i> cognition/ — 认知状态子系统</h3>
-    <p class="dim">这是 Dawei "Project Alignment Graph" 的文件化表达——追踪项目的共享认知、每个成员的理解状态、以及两者之间的差距。</p>
-
-    <div class="file-item">
-      <div class="name"><i class="fas fa-file-lines"></i> shared-state.md <span class="status-badge badge-green">项目真相</span></div>
-      <div class="desc">共享项目状态——当前所有经 DRI 确认的认知对象索引。相当于"项目现在认为是真的东西"。当前有 3 个 accepted + 1 个 monitoring。</div>
-    </div>
-
-    <div class="subfolder">
-      <div class="file-item">
-        <div class="name"><i class="fas fa-folder"></i> objects/ <span class="status-badge badge-blue">认知对象</span></div>
-        <div class="desc">项目认为是真的事——目标、决策、风险、假设等。每个对象由一个或多个 signal 支撑，经 DRI 确认后才成立。状态：<b>candidate</b>（AI 推断，未确认）→ <b>accepted</b>（DRI 确认）→ 或 <b>rejected</b> / <b>monitoring</b>。当前有 4 个对象。</div>
-      </div>
-    </div>
-
-    <div class="subfolder">
-      <div class="file-item">
-        <div class="name"><i class="fas fa-folder"></i> signals/</div>
-        <div class="desc">外部发生的事——一封邮件、一段会议讨论、一篇论文。它本身不是项目真相，只是可能影响项目真相的证据。Signal 是证据，Object 是结论；证据进来后 DRI 判断"这条证据是否改变了我的结论"。</div>
-      </div>
-      <div class="subfolder">
-        <div class="file-item">
-          <div class="name"><i class="fas fa-file-lines"></i> candidates.md <span class="status-badge badge-amber">待审</span></div>
-          <div class="desc">候选信号列表——AI 扫描发现的、可能影响项目认知的信号。每条包含来源、内容摘要、AI 的推断、优先级。等 DRI 在 Truth Gate 中判断后，accepted 的移到 admitted/，rejected 的标记移除。当前 5 条。</div>
-        </div>
-        <div class="file-item">
-          <div class="name"><i class="fas fa-folder"></i> admitted/</div>
-          <div class="desc">已准入的信号——经 DRI 确认后，成为认知对象的支撑证据存放于此。当前为空（首轮信号直接提升为 objects，未走 admitted 中转）。</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="subfolder">
-      <div class="file-item">
-        <div class="name"><i class="fas fa-folder"></i> stances/ <span class="status-badge badge-amber">成员立场</span></div>
-        <div class="desc">每个团队成员一个文件，记录 AI 推断的（或经本人确认的）认知立场——他们目前对项目方向的理解是什么、有没有分歧。状态为 <b>inferred</b>（AI 推断）→ <b>aligned</b>（本人确认一致）/ <b>misaligned</b>（确认有分歧）。</div>
-      </div>
-      <div class="subfolder">
-        <div class="file-item">
-          <div class="name"><i class="fas fa-file-lines"></i> stance.yinyuan.md <span class="status-badge badge-green">aligned</span></div>
-          <div class="desc">DRI 本人，通过对话确认。</div>
-        </div>
-        <div class="file-item">
-          <div class="name"><i class="fas fa-file-lines"></i> stance.yuecongyang.md <span class="status-badge badge-amber">inferred</span></div>
-          <div class="desc">AI 推断他可能不了解最新方向。已发私聊校准问题，等待回复。</div>
-        </div>
-        <div class="file-item">
-          <div class="name"><i class="fas fa-file-lines"></i> stance.mingyugu.md <span class="status-badge badge-blue">partially grounded</span></div>
-          <div class="desc">角色已由 DRI 确认为"深度参与"。认知立场未经本人确认。</div>
-        </div>
-        <div class="file-item">
-          <div class="name"><i class="fas fa-file-lines"></i> stance.jianliu3.md <span class="status-badge badge-amber">inferred</span></div>
-          <div class="desc">AI 推断他可能还把项目理解为"文件夹优化"。低优先级，下次互动时确认。</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="file-item">
-      <div class="name"><i class="fas fa-file-lines"></i> gaps.md <span class="status-badge badge-green">护城河</span></div>
-      <div class="desc">认知差距图——自动对比 shared-state 和每个 stance，列出谁的理解和项目真相不一致。这是 Concordia 最有防御性的层——平台能做摘要，但"知道谁认知落后"是独有能力。当前 1 个 active gap、1 个 low priority、1 个 resolved。</div>
-    </div>
-  </div>
-
-  <!-- Pending review -->
-  <div class="folder-section">
-    <h3><i class="fas fa-folder-open"></i> pending-review/ — 等待 DRI 决策</h3>
-    <p class="dim">AI 准备好的校准问题放在这里，等 DRI 来 review 时逐条回答。</p>
-
-    <div class="file-item">
-      <div class="name"><i class="fas fa-file-lines"></i> queue.md</div>
-      <div class="desc">校准问题队列——结合项目全貌（shared-state + objects + signals + stances + gaps）生成的、给 DRI 回答的具体问题。每个问题都是"AI 的判断 + 建议 + 等你确认"的格式。当前 7 个问题已全部处理完。</div>
-    </div>
-  </div>
 </section>
 
 <!-- Sources -->
