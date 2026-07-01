@@ -138,14 +138,14 @@
     <div class="subfolder">
       <div class="file-item">
         <div class="name"><i class="fas fa-folder"></i> objects/ <span class="status-badge badge-blue">认知对象</span></div>
-        <div class="desc">每个认知对象独立一个文件（goal、decision、risk、assumption 等）。每个对象有状态：<b>candidate</b>（AI 推断，未确认）→ <b>accepted</b>（DRI 确认）→ 或 <b>rejected</b> / <b>monitoring</b>。当前有 4 个对象：项目定位、三层架构、信息架构、技术路线。</div>
+        <div class="desc">项目认为是真的事——目标、决策、风险、假设等。每个对象由一个或多个 signal 支撑，经 DRI 确认后才成立。状态：<b>candidate</b>（AI 推断，未确认）→ <b>accepted</b>（DRI 确认）→ 或 <b>rejected</b> / <b>monitoring</b>。当前有 4 个对象。</div>
       </div>
     </div>
 
     <div class="subfolder">
       <div class="file-item">
         <div class="name"><i class="fas fa-folder"></i> signals/</div>
-        <div class="desc">信号流转区。</div>
+        <div class="desc">外部发生的事——一封邮件、一段会议讨论、一篇论文。它本身不是项目真相，只是可能影响项目真相的证据。Signal 是证据，Object 是结论；证据进来后 DRI 判断"这条证据是否改变了我的结论"。</div>
       </div>
       <div class="subfolder">
         <div class="file-item">
