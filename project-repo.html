@@ -97,6 +97,24 @@
   <h2><i class="fas fa-brain"></i>state/ — 项目的大脑</h2>
   <p class="intro">这是整个系统最核心的部分。它记录了：项目是什么（PROJECT.md）、该关注什么（signal-mandate）、项目的共享认知状态（cognition/）、以及等待 DRI 决策的问题（pending-review/）。</p>
 
+  <div class="overview-box"><span class="hl">state/</span>
+├── <span class="hl2">PROJECT.md</span>                 项目定义（目标、交付物、团队）
+├── <span class="hl2">signal-mandate.md</span>          信号指令（关注什么、从哪扫、怎么判断）
+├── <span class="hl2">cognition/</span>                 认知状态子系统
+│   ├── shared-state.md          共享项目真相（DRI 确认的索引）
+│   ├── objects/                  认知对象（goal/decision/risk/assumption）
+│   ├── signals/
+│   │   ├── candidates.md         候选信号（待 DRI 判断）
+│   │   └── admitted/             已准入信号（支撑证据）
+│   ├── stances/                  成员认知立场（逐人）
+│   │   ├── stance.yinyuan.md
+│   │   ├── stance.yuecongyang.md
+│   │   ├── stance.mingyugu.md
+│   │   └── stance.jianliu3.md
+│   └── gaps.md                   认知差距图（护城河）
+└── <span class="hl2">pending-review/</span>            等待 DRI 决策的校准问题
+    └── queue.md</div>
+
   <div class="file-item">
     <div class="name"><i class="fas fa-file-lines"></i> PROJECT.md</div>
     <div class="desc">项目定义文档。包含项目目标、交付物、成功标准、deadline、团队成员。是整个项目的"宪法"。</div>
